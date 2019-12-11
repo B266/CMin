@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/Complier/.vs/Complier/v16
+/Complier/Complier.sln
+/Complier/Complier/Complier.vcxproj.user
+/Complier/Complier/Complier.vcxproj.filters
+/Complier/Complier/Complier.vcxproj
