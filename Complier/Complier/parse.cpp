@@ -12,7 +12,7 @@ static TreeNode* val_declaration();
 static TreeNode* arrval_declaration();
 static TreeNode* fun_declaration();
 static TreeNode* params();
-static TreeNode* params_list();
+static TreeNode* param_list();
 static TreeNode* param();
 static TreeNode* compound_stmt();
 
@@ -39,8 +39,7 @@ TreeNode* declaration_list() /* declaration_list ÉùÃ÷ÁÐ±í */
 {
 	TreeNode* t = declaration();
 	TreeNode* p = t;
-	while ((token != ENDFILE) && (token != END) &&
-		(token != ELSE) && (token != UNTIL))
+	while (token != ENDFILE)
 	{
 		TreeNode* q;
 		q = declaration();
@@ -61,32 +60,32 @@ TreeNode* declaration()
 {
 	TreeNode* t = NULL;
 	TreeNode* p = t;
-	TokenType type = token;
+	TokenType tokentype = token;
 	if (token == INT || token == VOID) {
 		match(ID);
 		char* idname = copyString(tokenString);
 		if (token == SEMI) {
 			t = val_declaration();
 			t->attr.name = idname;
-			if (type == INT)
+			if (tokentype == INT)
 				t->type = Integer;
-			else if (type == VOID)
+			else if (tokentype == VOID)
 				t->type = Void;
 		}
-		/*else if (token == '[') {
+		else if (token == LMPAREN) {
 			t = arrval_declaration();
 			t->attr.arr.name = idname;
-			if (type == INT)
+			if (tokentype == INT)
 				t->type = IntegerArray;
-			else if (type == VOID)
+			else if (tokentype == VOID)
 				t->type = Void;
 		}
-		else if (token == '(') {
+		else if (token == LPAREN) {
 			t = fun_declaration();
 			t->attr.name = idname;
-			if (type == INT)
+			if (tokentype == INT)
 				t->type = Integer;
-			else if (type == VOID)
+			else if (tokentype == VOID)
 				t->type = Void;
 		}
 		else {
@@ -94,7 +93,6 @@ TreeNode* declaration()
 			printToken(token, tokenString);
 			fprintf(listing, "        ");
 		}
-		*/
 	}
 	else {
 		syntaxError("unexpected token -> ");
@@ -106,16 +104,18 @@ TreeNode* declaration()
 
 /* val_declaration -> type_specifier ID ; */
 TreeNode* val_declaration() {
-	TreeNode* t = newDeclNode(ValK);
+	TreeNode* t = newDeclNode(VarK);
+	match(SEMI);
 	return t;
 }
 
-/* valarr_declaration -> type_specifier ID[NUM]; */
+/* valarr_declaration -> type_specifier ID [ NUM ] ; */
 TreeNode* arrval_declaration() {
-	TreeNode* t = newDeclNode(ArrValK);
+	TreeNode* t = newDeclNode(ArrVarK);
+	match(LMPAREN);
 	match(NUM);
 	t->attr.arr.size = atoi(tokenString);
-	//match(']');
+	match(RMPAREN);
 	match(SEMI);
 	return t;
 }
@@ -123,10 +123,58 @@ TreeNode* arrval_declaration() {
 /* fun_declaration -> type_specifier ID ( params ) compound_stmt */
 TreeNode* fun_declaration() {
 	TreeNode* t = newDeclNode(FuncK);
-
+	match(LPAREN);
+	t->child[0] = params();
+	match(RPAREN);
+	t->child[1] = compound_stmt();
 	return t;
 }
 
+/* params -> param_list | void */
+TreeNode* params() {
+	TreeNode* t = NULL;
+	if (token == VOID) {
+		t = newParamNode(NonArrParamK);
+		match(VOID);
+	}
+	else if (token == INT) {
+		t = param_list();
+	}
+	return t;
+}
+
+/* param_list -> param_list , param | param */
+TreeNode* param_list() {
+	TreeNode* t = param();
+	TreeNode* p = t;
+	while (token == COMMA)
+	{
+		TreeNode* q;
+		match(COMMA);
+		q = param();
+		if (q != NULL) {
+			if (t == NULL)
+				t = p = q;
+			else {
+				p->sibling = q;
+				p = q;
+			}
+		}
+	}
+	return t;
+}
+
+/* param -> int ID | int ID [ ] */
+TreeNode* param() {
+	TreeNode* t = newParamNode(ArrParamK);
+	match(INT);
+	match(ID);
+	if (token == LMPAREN) {
+		match(LMPAREN);
+		match(RMPAREN);
+	}
+	return t;
+}
 
 /******************************************************/
 /*       the primary function of the parser           */
