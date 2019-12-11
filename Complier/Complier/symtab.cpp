@@ -11,7 +11,7 @@
 #define MAX_SCOPE 1000
 
 /* the hash function */
-static int hash(char* key)
+static int hash(const char* key)
 {
 	int temp = 0;
 	int i = 0;

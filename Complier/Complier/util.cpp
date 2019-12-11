@@ -123,6 +123,25 @@ TreeNode* newParamNode(ParamKind kind)
 	return t;
 }
 
+/* Function newTypeNode creates a new type
+ * node for syntax tree constrcution
+ */
+TreeNode* newTypeNode(TypeKind kind)
+{
+	TreeNode* t = (TreeNode*)malloc(sizeof(TreeNode));
+	int i;
+	if (t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else {
+		for (i = 0; i < MAXCHILDREN; i++)t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = TypeK;
+		t->kind.type = kind;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
 /* Function copuString allocates and makes a new
  * copy of an existing string
  */

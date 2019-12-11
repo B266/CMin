@@ -47,7 +47,7 @@ extern int lineno;	/* source line number for listing */
 typedef enum { StmtK, ExpK,DeclK,ParamK,TypeK }NodeKind;
 typedef enum {CompK,IfK,IterK,RetK}StmtKind;
 typedef enum {AssignK, OpK, ConstK, IdK,ArrIdK,CallK }ExpKind;
-typedef enum {FuncK,ValK,ArrValK}DeclKind;//函数声明或变量声明
+typedef enum {FuncK,VarK, ArrVarK}DeclKind;//函数声明或变量声明
 typedef enum {ArrParamK,NonArrParamK}ParamKind;
 typedef enum { TypeNameK }TypeKind;
 
@@ -74,6 +74,7 @@ typedef struct treeNode
 	union {
 		StmtKind stmt; ExpKind exp;
 		DeclKind decl; ParamKind param;
+		TypeKind type;
 	}kind;
 	union {
 		TokenType op;
