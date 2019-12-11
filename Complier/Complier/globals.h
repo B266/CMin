@@ -19,20 +19,17 @@
 /* MAXRESERVED = the number of reserved words */
 #define MAXRESERVED 8
 
-typedef enum
-{
-	/* book-keeping tokens */
+typedef enum {
+	/*book-keeping tokens*/
 	ENDFILE, ERROR,
-	/* reserved words */
-	IF, THEN, ELSE, END, REPEAT, UNTIL, READ, WRITE,
-	/* multicharacter tokens */
+	/*reserved words*/
+	ELSE, IF, INT, RETURN, VOID, WHILE,
+	/*multicaracter tokens*/
 	ID, NUM,
-	/* special symbols */
-	ASSIGN, EQ, LT, PLUS, MINUS, TIMES, OVER, LPAREN, RPAREN, SEMI,
-
-	INT, VOID
-
-} TokenType;
+	/*special symbols*/
+	PLUS, MINUS, MULTIPLY, DIVIDE, LESSTHAN, LESSOREQUAL, GREATERTHAN, GREATEROREQUAL, EEQUAL, UNEQUAL, EQUAL, SEMI, COMMA, LPAREN, RPAREN, LMPAREN, RMPAREN, LLPAREN, LRPAREN, LNOTE, RNOTE
+	//    +     -       *        /        <         <=            >             >=           ==      !=       =      ;     ,     (         )       [        ]        {        }      /*      */   
+}TokenType;
 
 extern FILE* source; /* source code text file */
 extern FILE* listing;	/* listing output text file */
