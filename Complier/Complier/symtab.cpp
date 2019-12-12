@@ -63,7 +63,7 @@ Scope sc_create(char* funcName)
 }
 
 
-// find var in stack from top to bottom 
+// find var in stack from this stack to old stack
 BucketList st_bucket(char* name)
 {
 	int h = hash(name);
