@@ -18,6 +18,11 @@ static TreeNode* compound_stmt();
 static TreeNode* local_declarations();
 static TreeNode* statement_list();
 static TreeNode* statement();
+static TreeNode* expression_stmt();
+static TreeNode* selection_stmt();
+static TreeNode* iteration_stmt();
+static TreeNode* return_stmt();
+static TreeNode* expression();
 
 static void syntaxError(const char* message)
 {
@@ -246,11 +251,11 @@ TreeNode* local_declarations() {
 
 /* 12. statement_list -> statement_list statement | empty */
 TreeNode* statement_list() {
-	TreeNode* t = NULL;
+	TreeNode* t = NULL; //¿ÉÄÜÎª¿Õ
 	TreeNode* p = t;
 	while (token != LRPAREN) {
 		TreeNode* q;
-
+		q = statement();
 		if (q != NULL) {
 			if (t == NULL)
 				t = p = q;
@@ -262,6 +267,101 @@ TreeNode* statement_list() {
 	}
 	return t;
 }
+
+/* 13. statement -> expression_stmt
+				    |compound_stmt
+				    |selection_stmt
+				    |iteration_stmt
+				    |return_stmt
+*/
+TreeNode* statement() {
+	TreeNode* t = NULL;
+	if (token == ID) {
+		t = expression_stmt();
+	}
+	else if (token == LLPAREN) {
+		t = compound_stmt();
+	}
+	else if (token == IF) {
+		t = selection_stmt();
+	}
+	else if (token == WHILE) {
+		t = iteration_stmt();
+	}
+	else if (token == RETURN) {
+		t = return_stmt();
+	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		fprintf(listing, "        ");
+	}
+
+	return t;
+}
+
+/* 14. expression_stmt -> expression ; | ; */
+TreeNode* expression_stmt() {
+
+}
+
+/* 15. selection_stmt -> if ( expression ) statement
+					    |if ( expression ) statement else statement 
+*/
+TreeNode* selection_stmt() {
+
+}
+
+/* 16. iteration_stmt -> while ( expression ) statement */
+TreeNode* iteration_stmt() {
+
+}
+
+/* 17. return_stmt -> return ; | return expression ; */
+TreeNode* return_stmt() {
+
+}
+
+/* 18. expression -> var = expression | simple_expression */
+TreeNode* expression() {
+
+}
+
+/* 19. var -> ID | ID [ expression ] */
+
+
+/* 20. simple_expression -> additive_expression relop additive_expression
+							|additive_expression 
+*/
+
+
+/* 21. relop -> <= | < | > | >= | == | != */
+
+
+/* 22. additive_expression -> additive_expression addop term | term */
+
+
+/* 23. addop -> + | - */
+
+
+/* 24. term -> term mulop factor | factor */
+
+
+/* 25. mulop -> * | / */
+
+
+/* 26. factor -> ( expression ) | var | call | NUM */
+
+
+/* 27. call -> ID ( args ) */
+
+
+/* 28. args -> arg_list | empty */
+
+
+/* 29. arg_list -> arg_list , expression | expression */
+
+
 
 /******************************************************/
 /*       the primary function of the parser           */
