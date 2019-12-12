@@ -211,8 +211,8 @@ TreeNode* param() {
 TreeNode* compound_stmt() {
 	TreeNode* t = newStmtNode(CompK);
 	match(LLPAREN);
-	t->child[0] = local_declarations();
-	t->child[1] = statement_list();
+	t->child[0] = local_declarations(); //复合语句节点的第一个孩子为局部声明节点
+	t->child[1] = statement_list(); //复合语句节点的第二个孩子为语句列表
 	match(LRPAREN);
 	return t;
 }
