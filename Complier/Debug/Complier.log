@@ -1,5 +1,2 @@
-﻿  analyze.cpp
-C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\analyze.cpp(341,8): error C2196: case 值“0”已使用
-  main.cpp
-  util.cpp
-  正在生成代码...
+﻿  util.cpp
+  Complier.vcxproj -> C:\inNEU\learning\program\GitHub\CMin\Complier\Debug\Complier.exe
