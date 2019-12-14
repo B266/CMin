@@ -6,30 +6,40 @@
   * and its lexeme to the listing file
   */
 
+  /* Procedure printToken prints a token
+   * and its lexeme to the listing file
+   */
 void printToken(TokenType token, const char* tokenString)
 {
-	switch (token)
+	switch (token)//ELSE, IF, INT, RETURN, VOID, WHILE,
 	{
-	case IF:
-	case THEN:
 	case ELSE:
-	case END:
-	case REPEAT:
-	case UNTIL:
-	case READ:
-	case WRITE:
+	case IF:
+	case INT:
+	case RETURN:
+	case VOID:
+	case WHILE:
 		fprintf(listing, "reserved word : %s\n", tokenString);
 		break;
-	case ASSIGN: fprintf(listing, ":=\n"); break;
-	case LT:fprintf(listing, "<\n"); break;
-	case EQ:fprintf(listing, "=\n"); break;
-	case LPAREN:fprintf(listing, "(\n"); break;
-	case RPAREN:fprintf(listing, ")\n"); break;
-	case SEMI:fprintf(listing, ";\n"); break;
 	case PLUS:fprintf(listing, "+\n"); break;
 	case MINUS:fprintf(listing, "-\n"); break;
-	case TIMES:fprintf(listing, "*\n"); break;
-	case OVER:fprintf(listing, "/\n"); break;
+	case MULTIPLY:fprintf(listing, "*\n"); break;
+	case DIVIDE:fprintf(listing, "/\n"); break;
+	case LESSTHAN:fprintf(listing, "<\n"); break;
+	case LESSOREQUAL:fprintf(listing, "<=\n"); break;
+	case GREATERTHAN:fprintf(listing, ">\n"); break;
+	case GREATEROREQUAL:fprintf(listing, ">=\n"); break;
+	case EEQUAL:fprintf(listing, "==\n"); break;
+	case UNEQUAL:fprintf(listing, "!=\n"); break;
+	case EQUAL:fprintf(listing, "=\n"); break;
+	case SEMI:fprintf(listing, ";\n"); break;
+	case COMMA:fprintf(listing, ",\n"); break;
+	case LPAREN:fprintf(listing, "(\n"); break;
+	case RPAREN:fprintf(listing, ")\n"); break;
+	case LMPAREN:fprintf(listing, "[\n"); break;
+	case RMPAREN:fprintf(listing, "]\n"); break;
+	case LLPAREN:fprintf(listing, "{\n"); break;
+	case LRPAREN:fprintf(listing, "}\n"); break;
 	case ENDFILE:fprintf(listing, "EOF\n"); break;
 	case NUM:
 		fprintf(listing, "NUM, val= %s\n", tokenString);
