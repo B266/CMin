@@ -295,6 +295,16 @@ static void checkNode(TreeNode* t)
 	case StmtK:
 		switch (t->kind.stmt)
 		{
+		case AssignK:
+			if (t->child[0]->type == IntegerArray)
+				/* no value can be assigned to array variable */
+				typeError(t->child[0], "assignment to array variable");
+			else if (t->child[1]->type == Void)
+				/* r-value cannot have void type */
+				typeError(t->child[0], "assignment of void value");
+			else
+				t->type = t->child[0]->type;
+			break;
 		case CompK:
 			sc_pop();
 			break;
@@ -328,16 +338,7 @@ static void checkNode(TreeNode* t)
 	case ExpK:
 		switch (t->kind.exp)
 		{
-		case AssignK:
-			if (t->child[0]->type == IntegerArray)
-				/* no value can be assigned to array variable */
-				typeError(t->child[0], "assignment to array variable");
-			else if (t->child[1]->type == Void)
-				/* r-value cannot have void type */
-				typeError(t->child[0], "assignment of void value");
-			else
-				t->type = t->child[0]->type;
-			break;
+		
 		case OpK:
 		{
 			ExpType leftType, rightType;
