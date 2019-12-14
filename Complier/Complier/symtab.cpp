@@ -28,6 +28,7 @@ static int nScope = 0;
 static Scope scopeStack[MAX_SCOPE];
 static int nScopeStack = 0;
 static int location[MAX_SCOPE];
+Scope globalScope;
 
 Scope sc_top(void)
 {

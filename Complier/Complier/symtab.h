@@ -40,7 +40,7 @@ typedef struct ScopeRec
 	BucketList hashTable[SIZE];	/* the hash table */
 }*Scope;
 
-Scope globalScope;
+extern Scope globalScope;
 
 /* Procedure st_insert inserts line numbers and 
  * memory location is inserted only the 

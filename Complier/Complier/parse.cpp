@@ -243,7 +243,7 @@ TreeNode* local_declarations() {
 		if (token == ID) {
 			char* idname = copyString(tokenString);
 			match(ID);
-			TreeNode* q;
+			TreeNode* q=NULL;
 			if (token == SEMI) {
 				q = var_declaration();
 				q->attr.name = idname;
