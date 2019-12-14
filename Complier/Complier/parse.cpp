@@ -18,11 +18,16 @@ static TreeNode* compound_stmt();
 static TreeNode* local_declarations();
 static TreeNode* statement_list();
 static TreeNode* statement();
-static TreeNode* expression_stmt();
 static TreeNode* selection_stmt();
 static TreeNode* iteration_stmt();
 static TreeNode* return_stmt();
+static TreeNode* assignment_stmt();
 static TreeNode* expression();
+static TreeNode* additive_expression();
+static TreeNode* term();
+static TreeNode* factor();
+static TreeNode* args();
+static TreeNode* arg_list();
 
 static void syntaxError(const char* message)
 {
@@ -63,58 +68,64 @@ TreeNode* declaration_list() /* declaration_list 声明列表 */
 	return t;
 }
 
-/* 3. declaration -> val_declaration | fun_declaration */
+/* 3. declaration -> var_declaration | fun_declaration */
 TreeNode* declaration() 
 {
 	TreeNode* t = NULL;
 	TreeNode* p = t;
 	TokenType tokentype = token;
 	if (token == INT) {
-		match(ID);
-		char* idname = copyString(tokenString);
-		if (token == SEMI) {
-			t = var_declaration();
-			t->attr.name = idname;
-			t->type = Integer;
-		}
-		else if (token == LMPAREN) {
-			t = arrvar_declaration();
-			t->attr.arr.name = idname;
-			t->type = IntegerArray;
-		}
-		else if (token == LPAREN) {
-			t = fun_declaration();
-			t->attr.name = idname;
-			t->type = Integer;
-		}
-		else {
-			syntaxError("unexpected token -> ");
-			printToken(token, tokenString);
-			fprintf(listing, "        ");
+		match(INT);
+		if (token == ID) {
+			char* idname = copyString(tokenString);
+			match(ID);
+			if (token == SEMI) {
+				t = var_declaration();
+				t->attr.name = idname;
+				t->type = Integer;
+			}
+			else if (token == LMPAREN) {
+				t = arrvar_declaration();
+				t->attr.arr.name = idname;
+				t->type = IntegerArray;
+			}
+			else if (token == LPAREN) {
+				t = fun_declaration();
+				t->attr.name = idname;
+				t->type = Integer;
+			}
+			else {
+				syntaxError("unexpected token -> ");
+				printToken(token, tokenString);
+				fprintf(listing, "        ");
+			}
 		}
 	}
 	else if (token == VOID) {
-		match(ID);
-		char* idname = copyString(tokenString);
-		if (token == SEMI) {
-			t = var_declaration();
-			t->attr.name = idname;
-			t->type = Void;
-		}
-		else if (token == LMPAREN) {
-			t = arrvar_declaration();
-			t->attr.arr.name = idname;
-			t->type = Void;
-		}
-		else if (token == LPAREN) {
-			t = fun_declaration();
-			t->attr.name = idname;
-			t->type = Void;
-		}
-		else {
-			syntaxError("unexpected token -> ");
-			printToken(token, tokenString);
-			fprintf(listing, "        ");
+		match(VOID);
+		if (token == ID) {
+			char* idname = copyString(tokenString);
+			match(ID);
+			if (token == SEMI) {
+				t = var_declaration();
+				t->attr.name = idname;
+				t->type = Void;
+			}
+			else if (token == LMPAREN) {
+				t = arrvar_declaration();
+				t->attr.arr.name = idname;
+				t->type = Void;
+			}
+			else if (token == LPAREN) {
+				t = fun_declaration();
+				t->attr.name = idname;
+				t->type = Void;
+			}
+			else {
+				syntaxError("unexpected token -> ");
+				printToken(token, tokenString);
+				fprintf(listing, "        ");
+			}
 		}
 	}
 	else {
@@ -125,19 +136,21 @@ TreeNode* declaration()
 	return t;
 }
 
-/* 4. val_declaration -> type_specifier ID ; */
+/* 4. var_declaration -> type_specifier ID ; */
 TreeNode* var_declaration() {
 	TreeNode* t = newDeclNode(VarK);
 	match(SEMI);
 	return t;
 }
 
-/* 4'. valarr_declaration -> type_specifier ID [ NUM ] ; */
+/* 4'. arrvar_declaration -> type_specifier ID [ NUM ] ; */
 TreeNode* arrvar_declaration() {
 	TreeNode* t = newDeclNode(ArrVarK);
 	match(LMPAREN);
+	if (token == NUM) {
+		t->attr.arr.size = atoi(tokenString);
+	}
 	match(NUM);
-	t->attr.arr.size = atoi(tokenString);
 	match(RMPAREN);
 	match(SEMI);
 	return t;
@@ -192,18 +205,21 @@ TreeNode* param_list() {
 TreeNode* param() {
 	TreeNode* t = newParamNode(ArrParamK);
 	match(INT);
-	match(ID); //param的最后一个字符是ID
-	char* idname = copyString(tokenString);
-	if (token == LMPAREN) {
-		match(LMPAREN);
-		match(RMPAREN); //param的最后一个字符是
-		t->attr.arr.name = idname;
-		t->type = IntegerArray;
+	if (t != NULL && token == ID) {
+		char* idname = copyString(tokenString);
+		match(ID); //param的最后一个字符是ID
+		if (token == LMPAREN) {
+			match(LMPAREN);
+			match(RMPAREN); //param的最后一个字符是
+			t->attr.arr.name = idname;
+			t->type = IntegerArray;
+		}
+		else {
+			t->attr.name = idname;
+			t->type = Integer;
+		}
 	}
-	else {
-		t->attr.name = idname;
-		t->type = Integer;
-	}
+	
 	return t;
 }
 
@@ -224,27 +240,30 @@ TreeNode* local_declarations() {
 	while (token == INT)
 	{
 		match(INT);
-		match(ID);
-		char* idname = copyString(tokenString);
-		TreeNode* q;
-		if (token == SEMI) {
-			q = var_declaration();
-			q->attr.name = idname;
-			q->type = Integer;
-		}
-		else if (token == LMPAREN) {
-			q = arrvar_declaration();
-			q->attr.arr.name = idname;
-			q->type = IntegerArray;
-		}
-		if (q != NULL) {
-			if (t == NULL)
-				t = p = q;
-			else {
-				p->sibling = q;
-				p = q;
+		if (token == ID) {
+			char* idname = copyString(tokenString);
+			match(ID);
+			TreeNode* q;
+			if (token == SEMI) {
+				q = var_declaration();
+				q->attr.name = idname;
+				q->type = Integer;
+			}
+			else if (token == LMPAREN) {
+				q = arrvar_declaration();
+				q->attr.arr.name = idname;
+				q->type = IntegerArray;
+			}
+			if (q != NULL) {
+				if (t == NULL)
+					t = p = q;
+				else {
+					p->sibling = q;
+					p = q;
+				}
 			}
 		}
+		
 	}
 	return t;
 }
@@ -253,7 +272,10 @@ TreeNode* local_declarations() {
 TreeNode* statement_list() {
 	TreeNode* t = NULL; //可能为空
 	TreeNode* p = t;
-	while (token != LRPAREN) {
+	while (token == ID || token == LLPAREN || token == IF || 
+		token == WHILE || token == RETURN || token == SEMI ||
+		token == LPAREN || token == NUM) 
+	{
 		TreeNode* q;
 		q = statement();
 		if (q != NULL) {
@@ -268,16 +290,16 @@ TreeNode* statement_list() {
 	return t;
 }
 
-/* 13. statement -> expression_stmt
-				    |compound_stmt
-				    |selection_stmt
-				    |iteration_stmt
-				    |return_stmt
+/* 13. statement -> assignment_stmt
+				   | compound_stmt
+				   | selection_stmt
+				   | iteration_stmt
+				   | return_stmt
 */
 TreeNode* statement() {
 	TreeNode* t = NULL;
 	if (token == ID) {
-		t = expression_stmt();
+		t = assignment_stmt();
 	}
 	else if (token == LLPAREN) {
 		t = compound_stmt();
@@ -291,76 +313,239 @@ TreeNode* statement() {
 	else if (token == RETURN) {
 		t = return_stmt();
 	}
-	else {
-		syntaxError("unexpected token -> ");
-		printToken(token, tokenString);
-		fprintf(listing, "        ");
-	}
-
 	return t;
 }
 
-/* 14. expression_stmt -> expression ; | ; */
-TreeNode* expression_stmt() {
-
-}
-
 /* 15. selection_stmt -> if ( expression ) statement
-					    |if ( expression ) statement else statement 
+					    | if ( expression ) statement else statement 
 */
 TreeNode* selection_stmt() {
-
+	TreeNode* t = newStmtNode(IfK);
+	match(IF);
+	match(LPAREN);
+	if (t != NULL) t->child[0] = expression();
+	match(RPAREN);
+	if (t != NULL) t->child[1] = statement();
+	if (token == ELSE) {
+		match(ELSE);
+		if (t != NULL) t->child[2] = statement();
+	}
+	return t;
 }
 
 /* 16. iteration_stmt -> while ( expression ) statement */
 TreeNode* iteration_stmt() {
-
+	TreeNode* t = newStmtNode(IterK);
+	match(WHILE);
+	match(LPAREN);
+	if (t != NULL) t->child[0] = expression();
+	match(RPAREN);
+	if (t != NULL) t->child[1] = statement();
+	return t;
 }
 
-/* 17. return_stmt -> return ; | return expression ; */
+/* 17. return_stmt -> return ; | return additive_expression ; */
 TreeNode* return_stmt() {
-
+	TreeNode* t = newStmtNode(RetK);
+	if (t != NULL) {
+		match(RETURN);
+		if (token != SEMI) {
+			t->child[0] = expression();
+			match(SEMI);
+		}
+		else {
+			match(SEMI);
+		}
+	}
+	return t;
 }
 
-/* 18. expression -> var = expression | simple_expression */
+/* 18. assignment_stmt -> ID = additive_expression ; 
+						| ID [ additive_expression ] = additive_expression ;
+						| ID ( args ) ; */
+TreeNode* assignment_stmt() {
+	TreeNode* t = NULL;
+	char* idname = copyString(tokenString);
+	TreeNode* p = newExpNode(IdK);
+	if (p != NULL) 
+		p->attr.name = idname;
+	TreeNode* q = newExpNode(ArrIdK);
+	if (q != NULL)
+		q->attr.arr.name = idname;
+	match(ID);
+	if (token == EQUAL) {
+		t = newExpNode(AssignK);
+		if (t != NULL) {
+			t->child[0] = p;
+			match(EQUAL);
+			t->child[1] = additive_expression();
+			match(SEMI);
+		}
+	}
+	else if (token == LMPAREN) {
+		t = newExpNode(AssignK);
+		if (t != NULL) {
+			t->child[0] = q;
+			match(LMPAREN);
+			q->child[0] = additive_expression();
+			match(RMPAREN);
+			match(EQUAL);
+			t->child[1] = additive_expression();
+			match(SEMI);
+		}
+	}
+	else if (token == LPAREN) {
+		t = newExpNode(CallK);
+		if (t != NULL) {
+			t->child[0] = p;
+			match(LPAREN);
+			t->child[1] = args();
+			match(RPAREN);
+			match(SEMI);
+		}
+	}
+	return t;
+}
+
+/* 19. var -> ID | ID [ additive_expression ] */
+
+
+/* 20. expression -> additive_expression relop additive_expression */
 TreeNode* expression() {
-
+	TreeNode* t = additive_expression();
+	if (token == LESSOREQUAL || token == LESSTHAN ||
+		token == GREATERTHAN || token == GREATEROREQUAL ||
+		token == EEQUAL || token == UNEQUAL) {
+		TreeNode* p = newExpNode(OpK);
+		if (p != NULL) {
+			p->child[0] = t;
+			p->attr.op = token;
+			t = p;
+		}
+		match(token);
+		if (t != NULL) {
+			t->child[1] = additive_expression();
+		}
+	}
+	return t;
 }
-
-/* 19. var -> ID | ID [ expression ] */
-
-
-/* 20. simple_expression -> additive_expression relop additive_expression
-							|additive_expression 
-*/
-
 
 /* 21. relop -> <= | < | > | >= | == | != */
 
 
 /* 22. additive_expression -> additive_expression addop term | term */
-
+TreeNode* additive_expression() {
+	TreeNode* t = term();
+	TreeNode* p = t;
+	while (token == PLUS || token == MINUS)
+	{
+		TreeNode* q = newExpNode(OpK);
+		if (q != NULL) {
+			q->attr.op = token;
+			match(token);
+			q->child[0] = t;
+		}
+		if (q != NULL) q->child[1] = term();
+		t = q;
+	}
+	return t;
+}
 
 /* 23. addop -> + | - */
 
 
 /* 24. term -> term mulop factor | factor */
-
+TreeNode* term() {
+	TreeNode* t = factor();
+	TreeNode* p = t;
+	while (token == MULTIPLY || token == DIVIDE)
+	{
+		TreeNode* q = newExpNode(OpK);
+		if (q != NULL) {
+			q->attr.op = token;
+			match(token);
+			q->child[0] = t;
+		}
+		if (q != NULL) q->child[1] = factor();
+		t = q;
+	}
+	return t;
+}
 
 /* 25. mulop -> * | / */
 
 
-/* 26. factor -> ( expression ) | var | call | NUM */
+/* 26. factor -> ( additive_expression ) | var | call | NUM */
+TreeNode* factor() {
+	TreeNode* t = NULL;
+	if (token == LPAREN) {
+		match(LPAREN);
+		t = additive_expression();
+		match(RPAREN);
+	}
+	else if (token == ID) {
+		char* idname = copyString(tokenString);
+		TreeNode* p = newExpNode(IdK);
+		if (p != NULL)
+			p->attr.name = idname;
+		TreeNode* q = newExpNode(ArrIdK);
+		if (q != NULL)
+			q->attr.arr.name = idname;
+		TreeNode* r = newExpNode(CallK);
+		if (r != NULL)
+			r->attr.name = idname;
+		match(ID);
+		if (token == LMPAREN) {
+			match(LMPAREN);
+			t = q;
+			match(RMPAREN);
+		}
+		else if (token == LPAREN) {
+			match(LPAREN);
+			t = r;
+			match(RPAREN);
+		}
+		else
+			t = p;
+	}
+	else if (token == NUM) {
+		t = newExpNode(ConstK);
+		t->attr.val = atoi(copyString(tokenString));
+		match(NUM);
+	}
+	return t;
+}
 
 
 /* 27. call -> ID ( args ) */
 
 
 /* 28. args -> arg_list | empty */
+TreeNode* args() {
+	TreeNode* t = arg_list();
+	return t;
+}
 
-
-/* 29. arg_list -> arg_list , expression | expression */
-
+/* 29. arg_list -> arg_list , additive_expression | additive_expression */
+TreeNode* arg_list() {
+	TreeNode* t = additive_expression();
+	TreeNode* p = t;
+	while (token == COMMA)
+	{
+		TreeNode* q;
+		match(COMMA);
+		q = additive_expression();
+		if (q != NULL) {
+			if (t == NULL)
+				t = p = q;
+			else {
+				p->sibling = q;
+				p = q;
+			}
+		}
+	}
+	return t;
+}
 
 
 /******************************************************/
