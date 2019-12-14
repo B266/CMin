@@ -1,7 +1,7 @@
 #include "globals.h"
 
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
-#define NO_PARSE TRUE
+#define NO_PARSE FLASE
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
 #define NO_ANALYZE TRUE
 
@@ -31,7 +31,7 @@ FILE* code;
 
 /* allocate and set tracing flags */
 int EchoSource = TRUE;
-int TraceScan = TRUE;
+int TraceScan = FALSE;
 int TraceParse = FALSE;
 int TraceAnalyze = FALSE;
 int TraceCode = TRUE;
