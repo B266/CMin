@@ -229,7 +229,7 @@ TreeNode* compound_stmt() {
 	match(LLPAREN);
 	t->child[0] = local_declarations(); //复合语句节点的第一个孩子为局部声明节点
 	t->child[1] = statement_list(); //复合语句节点的第二个孩子为语句列表
-	match(LRPAREN);
+	match(RLPAREN);
 	return t;
 }
 
@@ -374,7 +374,7 @@ TreeNode* assignment_stmt() {
 		q->attr.arr.name = idname;
 	match(ID);
 	if (token == EQUAL) {
-		t = newExpNode(AssignK);
+		t = newStmtNode(AssignK);
 		if (t != NULL) {
 			t->child[0] = p;
 			match(EQUAL);
@@ -383,7 +383,7 @@ TreeNode* assignment_stmt() {
 		}
 	}
 	else if (token == LMPAREN) {
-		t = newExpNode(AssignK);
+		t = newStmtNode(AssignK);
 		if (t != NULL) {
 			t->child[0] = q;
 			match(LMPAREN);

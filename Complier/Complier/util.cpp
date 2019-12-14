@@ -39,7 +39,7 @@ void printToken(TokenType token, const char* tokenString)
 	case LMPAREN:fprintf(listing, "[\n"); break;
 	case RMPAREN:fprintf(listing, "]\n"); break;
 	case LLPAREN:fprintf(listing, "{\n"); break;
-	case LRPAREN:fprintf(listing, "}\n"); break;
+	case RLPAREN:fprintf(listing, "}\n"); break;
 	case ENDFILE:fprintf(listing, "EOF\n"); break;
 	case NUM:
 		fprintf(listing, "NUM, val= %s\n", tokenString);
@@ -188,7 +188,92 @@ static void printSpaces(void)
 /* procedure printTree prints a syntax tree to the
  * listing file using indentation to indicate subtrees
  */
-void printTree(TreeNode* Node)
+void printTree(TreeNode* tree)
 {
-
+	int i;
+	INDENT;
+	while (tree != NULL) {
+		printSpaces();
+		if (tree->nodeKind == StmtK)
+		{
+			switch (tree->kind.stmt) {
+			case IfK:
+				fprintf(listing, "If\n");
+				break;
+			case IterK:
+				fprintf(listing, "While\n");
+				break;
+			case AssignK:
+				fprintf(listing, "Assign to: %s\n", tree->attr.name);
+				break;
+			case CompK:
+				fprintf(listing, "Compound\n");
+				break;
+			case RetK:
+				fprintf(listing, "Return\n");
+				break;
+			default:
+				fprintf(listing, "Unknown ExpNode kind\n");
+				break;
+			}
+		}
+		else if (tree->nodeKind == ExpK)
+		{
+			switch (tree->kind.exp) {
+			case OpK:
+				fprintf(listing, "Op: ");
+				printToken(tree->attr.op, "\0");
+				break;
+			case ConstK:
+				fprintf(listing, "Const: %d\n", tree->attr.val);
+				break;
+			case IdK:
+				fprintf(listing, "Id: %s\n", tree->attr.name);
+				break;
+			case ArrIdK:
+				fprintf(listing, "ArrId: %s\n", tree->attr.arr.name);
+				break;
+			case CallK:
+				fprintf(listing, "Call: %s\n", tree->attr.name);
+				break;
+			default:
+				fprintf(listing, "Unknown ExpNode kind\n");
+				break;
+			}
+		}
+		else if (tree->nodeKind == DeclK) {
+			switch (tree->kind.decl) {
+			case VarK:
+				fprintf(listing, "Var: %s\n", tree->attr.name);
+				break;
+			case ArrVarK:
+				fprintf(listing, "ArrVar: %s Capacity: %d\n", 
+					tree->attr.arr.name, tree->attr.arr.size);
+				break;
+			case FuncK:
+				fprintf(listing, "FuncK: %s\n", tree->attr.name);
+			default:
+				fprintf(listing, "Unknown DeclNode kind\n");
+				break;
+			}
+		}
+		else if (tree->nodeKind == ParamK) {
+			switch (tree->kind.param) {
+			case ArrParamK:
+				fprintf(listing, "ArrParam\n");
+				break;
+			case NonArrParamK:
+				fprintf(listing, "NonArrParam\n");
+				break;
+			default:
+				fprintf(listing, "Unknown ParamNode kind\n");
+				break;
+			}
+		}
+		else fprintf(listing, "Unknown node kind\n");
+		for (i = 0; i < MAXCHILDREN; i++)
+			printTree(tree->child[i]);
+		tree = tree->sibling;
+	}
+	UNINDENT;
 }
