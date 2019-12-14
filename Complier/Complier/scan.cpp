@@ -175,7 +175,7 @@ TokenType getToken(void)
 			{
 				state = DONE;
 				ungetNextChar();
-				currentToken = LNOTE;
+				currentToken = DIVIDE;
 			}
 			break;
 		case INCOMMENT:
