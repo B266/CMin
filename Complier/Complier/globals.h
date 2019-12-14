@@ -27,8 +27,27 @@ typedef enum {
 	/*multicaracter tokens*/
 	ID, NUM,
 	/*special symbols*/
-	PLUS, MINUS, MULTIPLY, DIVIDE, LESSTHAN, LESSOREQUAL, GREATERTHAN, GREATEROREQUAL, EEQUAL, UNEQUAL, EQUAL, SEMI, COMMA, LPAREN, RPAREN, LMPAREN, RMPAREN, LLPAREN, LRPAREN, LNOTE, RNOTE
-	//    +     -       *        /        <         <=            >             >=           ==      !=       =      ;     ,     (         )       [        ]        {        }      /*      */   
+	PLUS, //  + 
+	MINUS, //  -
+	MULTIPLY, //  * 
+	DIVIDE, //  /
+	LESSTHAN, //  <
+	LESSOREQUAL, //  <=
+	GREATERTHAN, //  >
+	GREATEROREQUAL, //  >=
+	EEQUAL, //  ==
+	UNEQUAL, //  !=
+	EQUAL, //  =
+	SEMI, //  ;
+	COMMA, //  ,
+	LPAREN, //  (
+	RPAREN, //  )
+	LMPAREN, //  [
+	RMPAREN, //  ]
+	LLPAREN, //  {
+	RLPAREN, //  }
+	LNOTE, //  /*
+	RNOTE  //  */
 }TokenType;
 
 extern FILE* source; /* source code text file */
