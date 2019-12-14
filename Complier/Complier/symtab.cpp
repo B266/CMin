@@ -60,6 +60,7 @@ Scope sc_create(char* funcName)
 	newScope->parent = sc_top();
 
 	scopes[nScope++] = newScope;
+	return newScope;
 }
 
 
@@ -143,6 +144,7 @@ int st_add_lineno(char* name, int lineno)
 	ll->next = (LineList)malloc(sizeof(struct LineListRec));
 	ll->next->lineno = lineno;
 	ll->next->next = NULL;
+	return lineno;
 }
 
 void printSymTabRows(BucketList* hashTable, FILE* listing)
