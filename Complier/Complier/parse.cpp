@@ -85,6 +85,7 @@ TreeNode* declaration()
 				t->attr.name = idname;
 				q = newTypeNode(TypeNameK);
 				q->type = Integer;
+				t->type = Integer;
 				t->child[0] = q;
 			}
 			else if (token == LMPAREN) {
@@ -92,11 +93,13 @@ TreeNode* declaration()
 				t->attr.arr.name = idname;
 				q = newTypeNode(TypeNameK);
 				q->type = Integer;
+				t->type = Integer;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {
 				t = fun_declaration();
 				t->attr.name = idname;
+				t->type = Integer;
 				q = newTypeNode(TypeNameK);
 				q->type = Integer;
 				t->child[0] = q;
@@ -118,6 +121,7 @@ TreeNode* declaration()
 				t->attr.name = idname;
 				q = newTypeNode(TypeNameK);
 				q->type = Void;
+				t->type = Void;
 				t->child[0] = q;
 			}
 			else if (token == LMPAREN) {
@@ -125,6 +129,7 @@ TreeNode* declaration()
 				t->attr.arr.name = idname;
 				q = newTypeNode(TypeNameK);
 				q->type = Void;
+				t->type = Void;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {
@@ -132,6 +137,7 @@ TreeNode* declaration()
 				t->attr.name = idname;
 				q = newTypeNode(TypeNameK);
 				q->type = Void;
+				t->type = Void;
 				t->child[0] = q;
 			}
 			else {
@@ -156,7 +162,7 @@ TreeNode* var_declaration() {
 	return t;
 }
 
-/* 4'. arrvar_declaration -> type_specifier ID [ NUM ] ; */
+/* 4. arrvar_declaration -> type_specifier ID [ NUM ] ; */
 TreeNode* arrvar_declaration() {
 	TreeNode* t = newDeclNode(ArrVarK);
 	match(LMPAREN);
@@ -532,6 +538,7 @@ TreeNode* factor() {
 			t = q;
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = IntegerArray;
+			t->type = IntegerArray;
 			t->child[0] = w;
 			t->child[1] = additive_expression();
 			match(RMPAREN);
@@ -543,6 +550,7 @@ TreeNode* factor() {
 			w->type = Integer;
 			t->child[0] = w;
 			t->child[1] = args();
+			t->type = Integer;
 			match(RPAREN);
 		}
 		else {
@@ -550,6 +558,7 @@ TreeNode* factor() {
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->child[0] = w;
+			t->type = Integer;
 		}
 			
 	}
@@ -558,6 +567,7 @@ TreeNode* factor() {
 		t->attr.val = atoi(copyString(tokenString));
 		TreeNode* w = newTypeNode(TypeNameK);
 		w->type = Integer;
+		t->type = Integer;
 		t->child[0] = w;
 		match(NUM);
 	}

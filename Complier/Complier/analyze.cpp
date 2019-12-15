@@ -337,6 +337,7 @@ static void checkNode(TreeNode* t)
 			break;
 		case RetK:
 		{
+			fprintf(listing, "FuncName %s\n", funcName);
 			const TreeNode* funcDecl =
 				st_bucket(funcName)->treeNode;
 			const ExpType funcType = funcDecl->type;
@@ -422,7 +423,7 @@ static void checkNode(TreeNode* t)
 		case CallK:
 		{
 			char* callingFuncName = t->attr.name;
-			const TreeNode* funcDecl =
+			TreeNode* funcDecl =
 				st_bucket(callingFuncName)->treeNode;
 			TreeNode* arg;
 			TreeNode* param;
@@ -486,6 +487,6 @@ static void checkNode(TreeNode* t)
 void typeCheck(TreeNode* syntaxTree)
 {
 	sc_push(globalScope);
-	traverse(syntaxTree, nullProc, checkNode);
+	traverse(syntaxTree, beforeCheck, checkNode);
 	sc_pop();
 }

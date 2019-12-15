@@ -256,7 +256,7 @@ void printSymTab(FILE* listing)
 			scope->nestedLevel);
 
 		fprintf(listing, "Symbol Name    Sym.Type         Data  Type        Line Numbers\n");
-		fprintf(listing, "-----------    ---------        ----------        ------------\n");
+		fprintf(listing, "-----------    ---------        ----------        -------------------------------\n");
 
 		printSymTabRows(hashTable, listing);
 
