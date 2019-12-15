@@ -6,28 +6,28 @@
 static TokenType token; /* holds current token */
 
 /* function prototypes for recursive calls */
-static TreeNode* declaration_list();
-static TreeNode* declaration();
-static TreeNode* var_declaration();
-static TreeNode* arrvar_declaration();
-static TreeNode* fun_declaration();
-static TreeNode* params();
-static TreeNode* param_list();
-static TreeNode* param();
-static TreeNode* compound_stmt();
-static TreeNode* local_declarations();
-static TreeNode* statement_list();
-static TreeNode* statement();
-static TreeNode* selection_stmt();
-static TreeNode* iteration_stmt();
-static TreeNode* return_stmt();
-static TreeNode* assignment_stmt();
-static TreeNode* expression();
-static TreeNode* additive_expression();
+static TreeNode* declaration_list(); //声明列表
+static TreeNode* declaration(); //声明
+static TreeNode* var_declaration(); //整型变量声明
+static TreeNode* arrvar_declaration(); //整型数组变量声明
+static TreeNode* fun_declaration(); //函数声明
+static TreeNode* params(); //函数内参数
+static TreeNode* param_list(); //参数列表
+static TreeNode* param(); //参数
+static TreeNode* compound_stmt(); //复合语句
+static TreeNode* local_declarations(); //局部变量声明
+static TreeNode* statement_list(); //语句列表
+static TreeNode* statement(); //语句
+static TreeNode* selection_stmt(); //if语句
+static TreeNode* iteration_stmt(); //while语句
+static TreeNode* return_stmt(); //return语句
+static TreeNode* assignment_stmt(); //赋值语句
+static TreeNode* expression(); //表达式
+static TreeNode* additive_expression(); //算数表达式
 static TreeNode* term();
 static TreeNode* factor();
-static TreeNode* args();
-static TreeNode* arg_list();
+static TreeNode* args(); //函数参数
+static TreeNode* arg_list(); //函数参数列表
 
 static void syntaxError(const char* message)
 {
@@ -68,7 +68,7 @@ TreeNode* declaration_list() /* declaration_list 声明列表 */
 	return t;
 }
 
-/* 3. declaration -> var_declaration | fun_declaration */
+/* 3. declaration -> var_declaration | arrvar_declaration | fun_declaration */
 TreeNode* declaration() 
 {
 	TreeNode* t = NULL;
@@ -169,6 +169,11 @@ TreeNode* arrvar_declaration() {
 	if (token == NUM) {
 		t->attr.arr.size = atoi(tokenString);
 	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
+	}
 	match(NUM);
 	match(RMPAREN);
 	match(SEMI);
@@ -243,6 +248,11 @@ TreeNode* param() {
 			t->child[0] = p;
 		}
 	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
+	}
 	
 	return t;
 }
@@ -283,6 +293,11 @@ TreeNode* local_declarations() {
 				r->type = IntegerArray;
 				q->child[0] = r;
 			}
+			else {
+				syntaxError("unexpected token -> ");
+				printToken(token, tokenString);
+				token = getToken();
+			}
 			if (q != NULL) {
 				if (t == NULL)
 					t = p = q;
@@ -291,6 +306,11 @@ TreeNode* local_declarations() {
 					p = q;
 				}
 			}
+		}
+		else {
+			syntaxError("unexpected token -> ");
+			printToken(token, tokenString);
+			token = getToken();
 		}
 		
 	}
@@ -341,6 +361,11 @@ TreeNode* statement() {
 	}
 	else if (token == RETURN) {
 		t = return_stmt();
+	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
 	}
 	return t;
 }
@@ -442,6 +467,11 @@ TreeNode* assignment_stmt() {
 			match(SEMI);
 		}
 	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
+	}
 	return t;
 }
 
@@ -464,6 +494,11 @@ TreeNode* expression() {
 		if (t != NULL) {
 			t->child[1] = additive_expression();
 		}
+	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
 	}
 	return t;
 }
@@ -571,6 +606,11 @@ TreeNode* factor() {
 		t->child[0] = w;
 		match(NUM);
 	}
+	else {
+		syntaxError("unexpected token -> ");
+		printToken(token, tokenString);
+		token = getToken();
+	}
 	return t;
 }
 
@@ -580,8 +620,13 @@ TreeNode* factor() {
 
 /* 28. args -> arg_list | empty */
 TreeNode* args() {
-	TreeNode* t = arg_list();
-	return t;
+	TreeNode* t = NULL;
+	if (token == RPAREN)
+		return t;
+	else {
+		t = arg_list();
+		return t;
+	}
 }
 
 /* 29. arg_list -> arg_list , additive_expression | additive_expression */
