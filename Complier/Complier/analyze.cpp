@@ -174,15 +174,20 @@ static void insertNode(TreeNode* t)
 				break;
 			}
 			fprintf(listing, "decl fun %s\n", funcName);
+			if (t->type == Integer)
+			{
+				fprintf(listing, "type Int\n");
+			}
+			
 			st_insert(funcName, t->lineno, addLocation(), t);
 			sc_push(sc_create(funcName));
 			preserveLastScope = TRUE;
-			switch (t->child[0]->attr.type)
+			switch (t->child[0]->type)
 			{
-			case INT:
+			case Integer:
 				t->type = Integer;
 				break;
-			case VOID:
+			case Void:
 			default:
 				t->type = Void;
 				break;
@@ -223,14 +228,31 @@ static void insertNode(TreeNode* t)
 	case ParamK:
 		if(t->child[0]->attr.type==VOID)
 			symbolError(t->child[0], "void type parameter is not allowed");
-		if (st_lookup(t->attr.name) == -1) {
-			fprintf(listing, "decl ParamK %s\n", t->attr.name);
-			st_insert(t->attr.name, t->lineno, addLocation(), t);
-			if (t->kind.param == NonArrParamK)
-				t->type = Integer;
-			else
-				symbolError(t, "symbol already declared for current scope");
+		else if (t->kind.param == NonArrParamK)
+		{
+			if (st_lookup(t->attr.name) == -1) {
+				fprintf(listing, "decl ParamK %s\n", t->attr.name);
+				st_insert(t->attr.name, t->lineno, addLocation(), t);
+				if (t->kind.param == NonArrParamK)
+					t->type = Integer;
+				else
+					symbolError(t, "symbol already declared for current scope");
+			}
 		}
+		else if (t->kind.param == ArrParamK)
+		{
+			if (st_lookup(t->attr.arr.name) == -1) {
+				fprintf(listing, "decl ArrParamK %s\n", t->attr.arr.name);
+				st_insert(t->attr.arr.name, t->lineno, addLocation(), t);
+				/*
+				if (t->kind.param == NonArrParamK)
+					t->type = Integer;
+				else
+					symbolError(t, "symbol already declared for current scope");
+				*/
+			}
+		}
+		
 		break;
 	default:
 		break;
@@ -337,7 +359,6 @@ static void checkNode(TreeNode* t)
 			break;
 		case RetK:
 		{
-			fprintf(listing, "FuncName %s\n", funcName);
 			const TreeNode* funcDecl =
 				st_bucket(funcName)->treeNode;
 			const ExpType funcType = funcDecl->type;
@@ -431,7 +452,7 @@ static void checkNode(TreeNode* t)
 			if (funcDecl == NULL)
 				break;
 
-			arg = t->child[0];
+			arg = t->child[1];
 			param = funcDecl->child[1];
 
 			if (funcDecl->kind.decl != FuncK)
