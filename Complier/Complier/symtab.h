@@ -25,19 +25,19 @@ typedef struct LineListRec
  */
 typedef struct BucketListRec
 {
-	char* name;
-	LineList lines;
-	TreeNode* treeNode;
-	int memloc;	/* memory location for variable */
-	struct BucketListRec* next;
+	char* name=NULL;
+	LineList lines=NULL;
+	TreeNode* treeNode=NULL;
+	int memloc=0;	/* memory location for variable */
+	struct BucketListRec* next=NULL;
 }*BucketList;
 
 typedef struct ScopeRec
 {
-	char* funcName;
-	int nestedLevel;
-	struct ScopeRec* parent;
-	BucketList hashTable[SIZE];	/* the hash table */
+	char* funcName=0;
+	int nestedLevel=0;
+	struct ScopeRec* parent=0;
+    BucketList hashTable[SIZE] = { 0 };	/* the hash table */
 }*Scope;
 
 extern Scope globalScope;

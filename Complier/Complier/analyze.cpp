@@ -51,12 +51,17 @@ static void insertIOFunc(void)
 	compStmt->child[1] = NULL;	// no stmt
 
 	func->lineno = 0;
-	strcpy(func->attr.name, "input");
+	char* funcName = new char[10];
+
+	strcpy(funcName, "input");
+	func->attr.name = funcName;
 	func->child[0] = typeSpec;
 	func->child[1] = NULL;	// no param
 	func->child[2] = compStmt;
 
-	char tempName[] = "input";
+	char* tempName = new char[10];
+	strcpy(tempName, "input");
+	fprintf(listing, "func input add!\n");
 	st_insert(tempName, -1, addLocation(), func);
 
 	func = newDeclNode(FuncK);
@@ -66,7 +71,9 @@ static void insertIOFunc(void)
 	func->type = Void;
 
 	param = newParamNode(NonArrParamK);
-	strcpy(func->attr.name, "arg");
+	char* tempName2 = new char[10];
+	strcpy(tempName2, "arg");
+	func->attr.name = tempName2;
 	param->child[0] = newTypeNode(TypeNameK);
 	param->child[0]->attr.type = INT;
 
@@ -75,12 +82,16 @@ static void insertIOFunc(void)
 	compStmt->child[1] = NULL;
 
 	func->lineno = 0;
-	strcpy(func->attr.name, "output");
+	char* tempName3 = new char[10];
+	strcpy(tempName3, "output");
+	func->attr.name = tempName3;
 	func->child[0] = typeSpec;
 	func->child[1] = param;
 	func->child[2] = compStmt;
 	
-	char tempName1[] = "output";
+	char* tempName1 = new char[10];
+	strcpy(tempName1, "output");
+	fprintf(listing, "func output add!\n");
 	st_insert(tempName1, -1, addLocation(), func);
 }
 
@@ -133,10 +144,16 @@ static void insertNode(TreeNode* t)
 		case IdK:
 		case ArrIdK:
 		case CallK:
+			fprintf(listing, "ExpK name %s\n", t->attr.name);
 			/* not yet in table, so treat as new definition */
 			if (st_lookup(t->attr.name) == -1)
 				/* not yet in table , error */
+			{
+				Scope nowScope= sc_top();
+				fprintf(listing, "can't find %s name\n", t->attr.name);
 				symbolError(t, "undelcared symbol");
+			}
+				
 			else
 				/* already in table, so ignore location
 				   add line number of use only */
@@ -156,6 +173,7 @@ static void insertNode(TreeNode* t)
 				symbolError(t, "function already declared");
 				break;
 			}
+			fprintf(listing, "decl fun %s\n", funcName);
 			st_insert(funcName, t->lineno, addLocation(), t);
 			sc_push(sc_create(funcName));
 			preserveLastScope = TRUE;
@@ -189,7 +207,10 @@ static void insertNode(TreeNode* t)
 				}
 
 				if (st_lookup_top(name) < 0)
+				{
+					fprintf(listing, "decl var/vars %s\n", name);
 					st_insert(name, t->lineno, addLocation(), t);
+				}
 				else
 					symbolError(t, "symbol already declared for current scope");
 			}
@@ -203,6 +224,7 @@ static void insertNode(TreeNode* t)
 		if(t->child[0]->attr.type==VOID)
 			symbolError(t->child[0], "void type parameter is not allowed");
 		if (st_lookup(t->attr.name) == -1) {
+			fprintf(listing, "decl ParamK %s\n", t->attr.name);
 			st_insert(t->attr.name, t->lineno, addLocation(), t);
 			if (t->kind.param == NonArrParamK)
 				t->type = Integer;

@@ -60,6 +60,11 @@ Scope sc_create(char* funcName)
 	newScope->nestedLevel = nScopeStack;
 	newScope->parent = sc_top();
 
+	for (int i = 0; i < SIZE; i++)
+	{
+		newScope->hashTable[i] = NULL;
+	}
+
 	scopes[nScope++] = newScope;
 	return newScope;
 }
@@ -101,6 +106,7 @@ void st_insert(char* name, int lineno, int loc, TreeNode* treeNode)
 		l->memloc = loc;
 		l->lines->next = NULL;
 		l->next = top->hashTable[h];
+		l->treeNode = treeNode;
 		top->hashTable[h] = l;
 	}
 	else /* found in table, so just add line number */
@@ -168,13 +174,13 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 				case DeclK:
 					switch (node->kind.decl) {
 					case FuncK:
-						fprintf(listing, "Function ");
+						fprintf(listing, "Function \t");
 						break;
 					case VarK:
-						fprintf(listing, "Variable ");
+						fprintf(listing, "Variable \t");
 						break;
 					case ArrVarK:
-						fprintf(listing, "Array Var.");
+						fprintf(listing, "Array Var.\t");
 						break;
 					default:
 						break;
@@ -183,10 +189,10 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 				case ParamK:
 					switch (node->kind.param) {
 					case NonArrParamK:
-						fprintf(listing, "Variable ");
+						fprintf(listing, "Variable \t");
 						break;
 					case ArrParamK:
-						fprintf(listing, "Array Var.");
+						fprintf(listing, "Array Var.\t");
 						break;
 					default:
 						break;
@@ -198,13 +204,13 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 
 				switch (node->type) {
 				case Void:
-					fprintf(listing, "Void  ");
+					fprintf(listing, "Void    \t");
 					break;
 				case Integer:
-					fprintf(listing, "Integer ");
+					fprintf(listing, "Integer \t");
 					break;
 				case Boolean:
-					fprintf(listing, "Boolean ");
+					fprintf(listing, "Boolean \t");
 					break;
 				default:
 					break;
@@ -249,8 +255,8 @@ void printSymTab(FILE* listing)
 			"(nested level: %d)\n",
 			scope->nestedLevel);
 
-		fprintf(listing, "Symbol Name      Sym.Type     Data  Type     Line Numbers\n");
-		fprintf(listing, "---------------   ---------    ----------     ------------\n");
+		fprintf(listing, "Symbol Name    Sym.Type         Data  Type        Line Numbers\n");
+		fprintf(listing, "-----------    ---------        ----------        ------------\n");
 
 		printSymTabRows(hashTable, listing);
 
