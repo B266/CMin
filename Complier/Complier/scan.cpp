@@ -3,7 +3,7 @@
 #include"scan.h"
 //DFA scanner states
 typedef enum {
-	START, INNUM, INID, DONE
+	START, INNUM, INID, INCOMMENT1, INCOMMENT2, DONE
 }StateType;
 char tokenString[MAXTOKENLEN + 1];
 #define BUFLEN 256
@@ -88,6 +88,14 @@ TokenType getToken(void) {
 					c0 = getNextChar();
 					if (c0 == '*') {
 						currentToken = LNOTE;
+						save = FALSE;
+						state = INCOMMENT1;
+						c = c0;
+					}
+					else if (c0 == '/') {
+						currentToken = LNOTE;
+						save = FALSE;
+						state = INCOMMENT2;
 						c = c0;
 					}
 					else currentToken = DIVIDE;
@@ -153,6 +161,21 @@ TokenType getToken(void) {
 					break;
 
 				}
+			}
+			break;
+		case INCOMMENT1:
+			save = FALSE;
+			c0 = getNextChar();
+			if (c == '*' && c0 == '/') {
+				state = START;
+				c = c0;
+			}
+			break;
+		case INCOMMENT2:
+			save = FALSE;
+			if (c == '\n') {
+				state = START;
+				c = c0;
 			}
 			break;
 		case INNUM:

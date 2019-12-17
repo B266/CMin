@@ -558,10 +558,10 @@ TreeNode* assignment_stmt() {
 		if (t != NULL) {
 			match(LPAREN);
 			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
+			r->type = Void;
 			t->child[0] = r;
 			t->child[1] = args();
-			t->type = Integer;
+			t->type = Void;
 			match(RPAREN);
 			match(SEMI);
 		}
@@ -683,7 +683,7 @@ TreeNode* factor() {
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->child[0] = w;
-			t->child[1] = args();
+			t->child[1] = args();					//***********************************************************************************************************
 			t->type = Integer;
 			match(RPAREN);
 		}
