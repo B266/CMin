@@ -1,9 +1,12 @@
-
+//666
+void cout(){
+output(1);
+}
 void main(void)
 {
 int x; int y;
 x=input();
 y=input();
-
+cout();
 output(x+y);
 }
