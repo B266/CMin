@@ -584,7 +584,7 @@ TreeNode* factor() {
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->child[0] = w;
-			t->child[1] = args();
+			t->child[1] = args();					//***********************************************************************************************************
 			t->type = Integer;
 			match(RPAREN);
 		}

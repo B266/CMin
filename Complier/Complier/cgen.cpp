@@ -69,139 +69,7 @@ static int getBlockOffset(TreeNode* list) {
     return offset;
 }
 
-/* Procedure genStmt generates code at a statement node */
-static void genStmt(TreeNode* tree) {
-    TreeNode* p1, * p2, * p3;
-    int savedLoc1, savedLoc2, currentLoc;
-    int Loc;
-    int offset;
-    switch (tree->kind.stmt) {
-       
-        case AssignK:
-            if (TraceCode) emitComment("-> assign");
 
-            p1 = tree->child[0];
-            p2 = tree->child[1];
-
-            // generate code for ac = address of lhs
-            //genExp(p1, TRUE);
-            // generate code to push lhs
-            emitRM("ST", ac, localOffset--, mp, "assign: push left (address)");
-
-            // generate code for ac = rhs
-            cGen(p2);
-            // now load lhs
-            emitRM("LD", ac1, ++localOffset, mp, "assign: load left (address)");
-
-            emitRM("ST", ac, 0, ac1, "assign: store value");
-
-            if (TraceCode) emitComment("<- assign");
-            break; // assign_k
-         
-    case CompK:
-        if (TraceCode)emitComment("->compound");
-
-        p1 = tree->child[0];
-        p2 = tree->child[1];
-
-        /* update localOffset with the offset derived from declarations */
-        offset = getBlockOffset(p1);
-        localOffset -= offset;
-
-        /* push scope */
-        sc_push(tree->attr.scope);
-
-        /* generate code for body */
-        cGen(p2);
-
-        /* pop scope */
-        sc_pop();
-
-        /* restore localOffset */
-        localOffset -= offset;
-
-        if (TraceCode)emitComment("<-compound");
-
-        break;
-
-    case IfK:
-        if (TraceCode)emitComment("->if");
-
-        p1 = tree->child[0];
-        p2 = tree->child[1];
-        p3 = tree->child[2];
-
-        /* generate code for test expression */
-        cGen(p1);
-
-        savedLoc1 = emitSkip(1);
-        emitComment("if:jump to else belongs here");
-
-        /* recurse on then part */
-        cGen(p2);
-
-        savedLoc2 = emitSkip(1);
-        emitComment("if:jump to end belongs here");
-
-        currentLoc = emitSkip(0);
-        emitBackup(savedLoc1);
-        emitRM_Abs("JEQ", ac, currentLoc, "if: jmp to else");
-        emitRestore();
-
-        /* recurse on else part */
-        cGen(p3);
-        currentLoc = emitSkip(0);
-        emitBackup(savedLoc2);
-        emitRM_Abs("LDA", pc, currentLoc, "jmp to end");
-        emitRestore();
-        if (TraceCode)  emitComment("<- if");
-
-        break; /* select_k */
-
-    case IterK:
-        if (TraceCode) emitComment("-> iter.");
-
-        p1 = tree->child[0];
-        p2 = tree->child[1];
-
-        savedLoc1 = emitSkip(0);
-        emitComment("while: jump after body comes back here");
-
-        /* generate code for test expression */
-        cGen(p1);
-
-        savedLoc2 = emitSkip(1);
-        emitComment("while: jump to end belongs here");
-
-        /* generate code for body */
-        cGen(p2);
-        emitRM_Abs("LDA", pc, savedLoc1, "while: jmp back to test");
-        /* backpatch */
-        currentLoc = emitSkip(0);
-        emitBackup(savedLoc2);
-        emitRM_Abs("JEQ", ac, currentLoc, "while: jmp to end");
-        emitRestore();
-
-        if (TraceCode)  emitComment("<- iter.");
-
-        break; /* iter_k */
-
-    case RetK:
-        if (TraceCode) emitComment("-> return");
-
-        p1 = tree->child[0];
-
-        /* generate code for expression */
-        cGen(p1);
-        emitRM("LD", pc, retFO, mp, "return: to caller");
-
-        if (TraceCode) emitComment("<- return");
-
-        break; /* return_k */
-    default:
-        break;
-    }
-}/* genStmt */
 
 /* Procedure genExp generates code at an expression node */
 static void genExp(TreeNode* tree, int lhs)
@@ -379,7 +247,7 @@ static void genExp(TreeNode* tree, int lhs)
         /* init */
         numOfArgs = 0;
 
-        p1 = tree->child[0];
+        p1 = tree->child[1];
 
         /* for each argument */
         while (p1 != NULL) {                                    //*****************************************
@@ -431,6 +299,140 @@ static void genExp(TreeNode* tree, int lhs)
         break;
     }
 } /* genExp */
+
+/* Procedure genStmt generates code at a statement node */
+static void genStmt(TreeNode* tree) {
+    TreeNode* p1, * p2, * p3;
+    int savedLoc1, savedLoc2, currentLoc;
+    int Loc;
+    int offset;
+    switch (tree->kind.stmt) {
+
+    case AssignK:
+        if (TraceCode) emitComment("-> assign");
+
+        p1 = tree->child[0];
+        p2 = tree->child[1];
+
+        // generate code for ac = address of lhs
+        genExp(p1, TRUE);
+        // generate code to push lhs
+        emitRM("ST", ac, localOffset--, mp, "assign: push left (address)");
+
+        // generate code for ac = rhs
+        cGen(p2);
+        // now load lhs
+        emitRM("LD", ac1, ++localOffset, mp, "assign: load left (address)");
+
+        emitRM("ST", ac, 0, ac1, "assign: store value");
+
+        if (TraceCode) emitComment("<- assign");
+        break; // assign_k
+
+    case CompK:
+        if (TraceCode)emitComment("->compound");
+
+        p1 = tree->child[0];
+        p2 = tree->child[1];
+
+        /* update localOffset with the offset derived from declarations */
+        offset = getBlockOffset(p1);
+        localOffset -= offset;
+
+        /* push scope */
+        sc_push(tree->attr.scope);
+
+        /* generate code for body */
+        cGen(p2);
+
+        /* pop scope */
+        sc_pop();
+
+        /* restore localOffset */
+        localOffset -= offset;
+
+        if (TraceCode)emitComment("<-compound");
+
+        break;
+
+    case IfK:
+        if (TraceCode)emitComment("->if");
+
+        p1 = tree->child[0];
+        p2 = tree->child[1];
+        p3 = tree->child[2];
+
+        /* generate code for test expression */
+        cGen(p1);
+
+        savedLoc1 = emitSkip(1);
+        emitComment("if:jump to else belongs here");
+
+        /* recurse on then part */
+        cGen(p2);
+
+        savedLoc2 = emitSkip(1);
+        emitComment("if:jump to end belongs here");
+
+        currentLoc = emitSkip(0);
+        emitBackup(savedLoc1);
+        emitRM_Abs("JEQ", ac, currentLoc, "if: jmp to else");
+        emitRestore();
+
+        /* recurse on else part */
+        cGen(p3);
+        currentLoc = emitSkip(0);
+        emitBackup(savedLoc2);
+        emitRM_Abs("LDA", pc, currentLoc, "jmp to end");
+        emitRestore();
+        if (TraceCode)  emitComment("<- if");
+
+        break; /* select_k */
+
+    case IterK:
+        if (TraceCode) emitComment("-> iter.");
+
+        p1 = tree->child[0];
+        p2 = tree->child[1];
+
+        savedLoc1 = emitSkip(0);
+        emitComment("while: jump after body comes back here");
+
+        /* generate code for test expression */
+        cGen(p1);
+
+        savedLoc2 = emitSkip(1);
+        emitComment("while: jump to end belongs here");
+
+        /* generate code for body */
+        cGen(p2);
+        emitRM_Abs("LDA", pc, savedLoc1, "while: jmp back to test");
+        /* backpatch */
+        currentLoc = emitSkip(0);
+        emitBackup(savedLoc2);
+        emitRM_Abs("JEQ", ac, currentLoc, "while: jmp to end");
+        emitRestore();
+
+        if (TraceCode)  emitComment("<- iter.");
+
+        break; /* iter_k */
+
+    case RetK:
+        if (TraceCode) emitComment("-> return");
+
+        p1 = tree->child[0];
+
+        /* generate code for expression */
+        cGen(p1);
+        emitRM("LD", pc, retFO, mp, "return: to caller");
+
+        if (TraceCode) emitComment("<- return");
+
+        break; /* return_k */
+    default:
+        break;
+    }
+}/* genStmt */
 
 /* Procedure genDecl generates code at a declaration node */
 static void genDecl(TreeNode* tree)

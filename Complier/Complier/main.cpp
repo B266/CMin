@@ -40,6 +40,8 @@ int Error = FALSE;
 
 int main(int argc, char* argv[])
 {
+	const int b = 233;
+	int a[5 * b];
 	TreeNode* syntaxTree;
 	char pgm[120]; /* source code file name */
 	/*
