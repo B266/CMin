@@ -3,6 +3,96 @@
 #include"scan.h"
 #include"parse.h"
 
+
+/*
+DeclNode:
+	FuncK: 
+		attr.name = ID
+		type = Void | Integer
+		child[0] = TypeNode(TypeNameK) : type = Void | Integer
+		child[1] = ParamNode | NULL
+		child[2] = StmtNode(CompK) | NULL
+		sibling = DeclNode | NULL
+	VarK: 
+		attr.name = ID
+		type = Void | Integer
+		child[0] = TypeNode(TypeNameK) : type = Void | Integer		
+		sibling = DeclNode | NULL
+	ArrVarK: 
+		attr.arr.name = ID
+		attr.arr.size = NUM
+		type = Void | Integer
+		child[0] = TypeNode(TypeNameK) : type = Void | Integer
+		sibling = DeclNode | NULL
+
+ParamNode:
+	ArrParamK: 
+		attr.arr.name = ID
+		type = IntegerArray
+		child[0] = TypeNode(TypeNameK) : type = IntegerArray
+		sibling = ParamNode | NULL
+	NonArrParamK:
+		attr.name = ID
+		type = Integer
+		child[0] = TypeNode(TypeNameK) : tpe = Integer
+		sibling = ParamNode | NULL
+
+StmtNode:
+	AssignK:
+		child[0] = ExpNode(IdK) | ExpNode(ArrIdK):
+		child[1] = ExpNode
+		sibling = StmtNode | NULL
+	CompK:
+		child[0] = DeclNode( VarK | ArrVarK ) | NULL
+		child[1] = StmtNode | NULL
+		sibling = NULL
+	IfK:
+		child[0] = ExpNode(OpK)
+		child[1] = StmtNode
+		child[2] = StmtNode | NULL
+		sibling = StmtNode | NULL
+	IterK:
+		child[0] = ExpNode(OpK)
+		child[1] = StmtNode
+		sibling = StmtNode | NULL
+	RetK:
+		child[0] = ExpNode | NULL
+
+ExpNode:
+	OpK:
+		attr.op = + - * / < <= >= > == !=
+		child[0] = ExpNode
+		child[1] = ExpNode
+		sibling = NULL
+	ConstK:
+		attr.val = NUM
+		type = Integer
+		child[0] = TypeNode(TypeNameK) : type = Integer
+		sibling = NULL
+	IdK:
+		attr.name = ID
+		type = Integer
+		child[0] = TypeNode(TypeNameK) : type = Integer
+		sibling = NULL
+	ArrIdK:
+		attr.arr.name = ID
+		type = IntegerArray
+		child[0] = TypeNode(TypeNameK) : type = IntegerArray
+		child[1] = ExpNode
+		sibling = NULL
+	CallK:
+		attr.name = ID
+		type = Integer
+		child[0] = TypeNode(TypeNameK) : type = Integer
+		child[1] = ExpNode | NULL
+		sibling = NULL
+
+TypeNode:
+	TypeNameK:
+		type = ExpType
+
+*/
+
 static TokenType token; /* holds current token */
 
 /* function prototypes for recursive calls */
@@ -236,6 +326,7 @@ TreeNode* param() {
 			match(RMPAREN); //param的最后一个字符是
 			t = newParamNode(ArrParamK);
 			t->attr.arr.name = idname;
+			t->type = IntegerArray;
 			p = newTypeNode(TypeNameK);
 			p->type = IntegerArray;
 			t->child[0] = p;
@@ -243,6 +334,7 @@ TreeNode* param() {
 		else {
 			t = newParamNode(NonArrParamK);
 			t->attr.name = idname;
+			t->type = Integer;
 			p = newTypeNode(TypeNameK);
 			p->type = Integer;
 			t->child[0] = p;
@@ -399,6 +491,7 @@ TreeNode* iteration_stmt() {
 }
 
 /* 17. return_stmt -> return ; | return additive_expression ; */
+
 TreeNode* return_stmt() {
 	TreeNode* t = newStmtNode(RetK);
 	if (t != NULL) {
@@ -416,16 +509,21 @@ TreeNode* return_stmt() {
 
 /* 18. assignment_stmt -> ID = additive_expression ; 
 						| ID [ additive_expression ] = additive_expression ;
-						| ID ( args ) ; */
+						| ID ( args ) ; 
+*/
 TreeNode* assignment_stmt() {
 	TreeNode* t = NULL;
 	char* idname = copyString(tokenString);
 	TreeNode* p = newExpNode(IdK);
-	if (p != NULL) 
+	if (p != NULL) {
 		p->attr.name = idname;
+		p->type = Integer;
+	}
 	TreeNode* q = newExpNode(ArrIdK);
-	if (q != NULL)
+	if (q != NULL) {
 		q->attr.arr.name = idname;
+		q->type = IntegerArray;
+	}
 	match(ID);
 	if (token == EQUAL) {
 		t = newStmtNode(AssignK);
@@ -460,9 +558,10 @@ TreeNode* assignment_stmt() {
 		if (t != NULL) {
 			match(LPAREN);
 			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
+			r->type = Void;
 			t->child[0] = r;
 			t->child[1] = args();
+			t->type = Void;
 			match(RPAREN);
 			match(SEMI);
 		}
