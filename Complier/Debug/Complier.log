@@ -1,2 +1,5 @@
-﻿  parse.cpp
-  Complier.vcxproj -> C:\inNEU\learning\program\GitHub\CMin\Complier\Debug\Complier.exe
+﻿  main.cpp
+  parse.cpp
+  正在生成代码...
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl codeGen(struct treeNode *,char *)" (?codeGen@@YAXPAUtreeNode@@PAD@Z)，该符号在函数 _main 中被引用
+C:\inNEU\learning\program\GitHub\CMin\Complier\Debug\Complier.exe : fatal error LNK1120: 1 个无法解析的外部命令
