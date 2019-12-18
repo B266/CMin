@@ -1,0 +1,16 @@
+﻿  analyze.cpp
+  cgen.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(78,20): warning C4101: “baseReg”: 未引用的局部变量
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(307,9): warning C4101: “Loc”: 未引用的局部变量
+  code.cpp
+  main.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\main.cpp(90,32): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\main.cpp(44,6): warning C4101: “a”: 未引用的局部变量
+  parse.cpp
+  scan.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\scan.cpp(17,29): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  symtab.cpp
+  util.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\util.cpp(163,19): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...
+  Complier.vcxproj -> C:\inNEU\learning\program\GitHub\CMin\Complier\x64\Debug\Complier.exe

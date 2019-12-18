@@ -76,14 +76,14 @@ ExpNode:
 		sibling = NULL
 	ArrIdK:
 		attr.arr.name = ID
-		type = IntegerArray
-		child[0] = TypeNode(TypeNameK) : type = IntegerArray
+		type = Integer
+		child[0] = TypeNode(TypeNameK) : type = Integer
 		child[1] = ExpNode
 		sibling = NULL
 	CallK:
 		attr.name = ID
-		type = Integer
-		child[0] = TypeNode(TypeNameK) : type = Integer
+		type = Integer | Void
+		child[0] = TypeNode(TypeNameK) : type = Integer | Void
 		child[1] = ExpNode | NULL
 		sibling = NULL
 
@@ -522,7 +522,7 @@ TreeNode* assignment_stmt() {
 	TreeNode* q = newExpNode(ArrIdK);
 	if (q != NULL) {
 		q->attr.arr.name = idname;
-		q->type = IntegerArray;
+		q->type = Integer;
 	}
 	match(ID);
 	if (token == EQUAL) {
@@ -543,7 +543,7 @@ TreeNode* assignment_stmt() {
 			t->child[0] = q;
 			match(LMPAREN);
 			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = IntegerArray;
+			r->type = Integer;
 			q->child[0] = r;
 			q->child[1] = additive_expression();
 			match(RMPAREN);
@@ -671,8 +671,8 @@ TreeNode* factor() {
 			match(LMPAREN);
 			t = q;
 			TreeNode* w = newTypeNode(TypeNameK);
-			w->type = IntegerArray;
-			t->type = IntegerArray;
+			w->type = Integer;
+			t->type = Integer;
 			t->child[0] = w;
 			t->child[1] = additive_expression();
 			match(RMPAREN);
