@@ -1,7 +1,10 @@
+/* A Program to perform Euclid`s
+   Algorithm to computer gcd */
+
+
 
 void main(void)
 {
-int x; 
-
-output(x);
+	int x;
+	x=inout();
 }

@@ -444,8 +444,12 @@ static void checkNode(TreeNode* t)
 		case CallK:
 		{
 			char* callingFuncName = t->attr.name;
+
+			BucketList funcBucketList = st_bucket(callingFuncName);
+			if (funcBucketList == NULL)
+				break;
 			TreeNode* funcDecl =
-				st_bucket(callingFuncName)->treeNode;
+				funcBucketList->treeNode;
 			TreeNode* arg;
 			TreeNode* param;
 

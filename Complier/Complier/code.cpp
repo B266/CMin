@@ -19,7 +19,7 @@ static int highEmitLoc = 0;
 /*Procedure emitComment prints a comment line
  *with comment c in the code file
  */
-void emitComment(char* c) {
+void emitComment(const char* c) {
     if (TraceCode)fprintf(code, "*%s\n", c);
 }
 
@@ -30,7 +30,7 @@ void emitComment(char* c) {
  *t=2nd source register
  *c=acomment to be printed if TraceCode is TRUE
  */
-void emitRO(char* op, int r, int s, int t, char* c) {
+void emitRO(const char* op, int r, int s, int t, const char* c) {
     fprintf(code, "%3d:   %5s   %d,%d,%d", emitLoc++, op, r, s, t);
     if (TraceCode)fprintf(code, "\t%s", c);
     fprintf(code, "\n");
@@ -44,7 +44,7 @@ void emitRO(char* op, int r, int s, int t, char* c) {
  *s=the base register
  *c=acomment to be printed if TraceCode is TRUE
  */
-void emitRM(char* op, int r, int d, int s, char* c) {
+void emitRM(const char* op, int r, int d, int s,const char* c) {
     fprintf(code, "%3d:  %5s  %d,%d(%d) ", emitLoc++, op, r, d, s);
     if (TraceCode) fprintf(code, "\t%s", c);
     fprintf(code, "\n");
@@ -86,7 +86,7 @@ void emitRestore(void) {
  *a=an absolute location in memory
  *c=a comment to be printed if TraceCode is TRUE
  */
-void emitRM_Abs(char* op, int r, int a, char* c) {
+void emitRM_Abs(const char* op, int r, int a,const char* c) {
     fprintf(code, "%3d:   %5s %d,%d(%d)", emitLoc, op, r, a - (emitLoc + 1),pc);
     fprintf(listing,"%d\n", a - (emitLoc + 1));
     ++emitLoc;

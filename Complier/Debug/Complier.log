@@ -1,5 +1,309 @@
-﻿  main.cpp
+﻿  cgen.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(81,51): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [10]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(81,40): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(89,78): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(89,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(94,79): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(94,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(96,59): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(96,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(98,51): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [10]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(98,40): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(102,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [11]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(102,35): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(123,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [11]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(123,35): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(128,41): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [5]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(128,35): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(138,51): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [29]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(138,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(144,50): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [28]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(144,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(148,60): error C2664: “void emitRM_Abs(char *,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(148,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(78,6): message : 参见“emitRM_Abs”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(155,55): error C2664: “void emitRM_Abs(char *,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(155,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(78,6): message : 参见“emitRM_Abs”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(157,44): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [6]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(157,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(162,46): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(162,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(168,61): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [39]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(168,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(174,54): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [32]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(174,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(178,67): error C2664: “void emitRM_Abs(char *,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(178,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(78,6): message : 参见“emitRM_Abs”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(182,62): error C2664: “void emitRM_Abs(char *,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(182,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(78,6): message : 参见“emitRM_Abs”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(185,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(185,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(190,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [10]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(190,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(196,56): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(196,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(198,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [10]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(198,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(217,43): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [6]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(217,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(225,60): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(225,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(230,61): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(230,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(235,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(235,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(238,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(238,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(241,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(241,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(244,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(244,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(247,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(247,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(248,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(248,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(249,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(249,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(250,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(250,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(251,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(251,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(254,47): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(254,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(255,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(255,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(256,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(256,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(257,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(257,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(258,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(258,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(261,46): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(261,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(262,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(262,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(263,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(263,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(264,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(264,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(265,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(265,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(268,47): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(268,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(269,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(269,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(270,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(270,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(271,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(271,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(272,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(272,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(275,47): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(275,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(276,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(276,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(277,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(277,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(278,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(278,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(279,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(279,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(282,47): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(282,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(283,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(283,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(284,50): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(284,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(285,57): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(285,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(286,49): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(286,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(289,49): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [23]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(289,25): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(295,44): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [6]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(295,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(300,46): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(300,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(302,58): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(302,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(303,47): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(303,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(320,61): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(320,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(328,103): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(328,24): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(329,83): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(329,24): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(337,74): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(337,28): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(340,74): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(340,28): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(344,72): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(344,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(350,72): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(350,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(351,82): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(351,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(359,70): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(359,24): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(362,70): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(362,24): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(366,55): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(366,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(369,52): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(369,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(372,44): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [6]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(372,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(377,45): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [8]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(377,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(393,13): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(393,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(401,56): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(401,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(406,72): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(406,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(408,47): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(408,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(42,6): message : 参见“emitRO”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(412,79): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(412,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(414,70): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(414,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(416,63): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(416,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(420,78): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(420,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(423,66): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(423,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(426,46): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [8]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(426,37): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(458,77): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(458,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(464,80): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [58]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(464,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(469,54): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [32]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(469,21): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(473,74): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(473,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(477,65): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(477,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(491,72): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [3]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(491,16): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(496,89): error C2664: “void emitRM_Abs(char *,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(496,20): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(78,6): message : 参见“emitRM_Abs”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(510,51): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [14]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(510,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(522,51): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [14]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(522,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(537,46): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(537,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(543,46): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [9]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(543,36): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(33,6): message : 参见“emitComment”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(580,65): error C2664: “void emitRM(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(580,12): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.h(51,6): message : 参见“emitRM”的声明
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(581,70): error C2664: “void emitRO(char *,int,int,int,char *)”: 无法将参数 1 从“const char [4]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\cgen.cpp(581,70): fatal error C1003: 错误计数超过 100；正在停止编译
+  code.cpp
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.cpp(69,58): error C2664: “void emitComment(char *)”: 无法将参数 1 从“const char [18]”转换为“char *”
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.cpp(69,39): message : 从字符串文本转换将丢失 const 限定符(请参阅 /Zc:strictStrings)
+C:\inNEU\learning\program\GitHub\CMin\Complier\Complier\code.cpp(22,6): message : 参见“emitComment”的声明
   parse.cpp
   正在生成代码...
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl codeGen(struct treeNode *,char *)" (?codeGen@@YAXPAUtreeNode@@PAD@Z)，该符号在函数 _main 中被引用
-C:\inNEU\learning\program\GitHub\CMin\Complier\Debug\Complier.exe : fatal error LNK1120: 1 个无法解析的外部命令
