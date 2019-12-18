@@ -1,5 +1,8 @@
 # CminComplier
 
+## grammer
+ 1. program -> declaration_list
+
 ## to do
  1. read and study [the repo](https://github.com/isairz/cminus) 
  2. rewrite the whole project 
