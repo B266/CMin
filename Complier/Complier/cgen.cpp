@@ -12,7 +12,7 @@
 #include "util.h"
 
 static char buffer[1000];
-#define ofpFO 0
+#define ofpFO 1
 #define retFO -1
 #define initFO -2
 
