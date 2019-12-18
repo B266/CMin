@@ -173,16 +173,25 @@ static void genExp(TreeNode* tree, int lhs)
 
     case IdK:
     case ArrIdK:
+		char* IdName;
+		if (tree->kind.exp == IdK)
+		{
+			IdName = tree->attr.name;
+		}
+		else
+		{
+			IdName = tree->attr.arr.name;
+		}
         if (TraceCode) {
-            sprintf(buffer, "-> Id (%s)", tree->attr.name);
+            sprintf(buffer, "-> Id (%s)", IdName);
             emitComment(buffer);
         }
 
-        loc = st_lookup_top(tree->attr.name);
+        loc = st_lookup_top(IdName);
         if (loc >= 0)
             varOffset = initFO - loc;
         else
-            varOffset = -(st_lookup(tree->attr.name));
+            varOffset = -(st_lookup(IdName));
 
         /* generate code to load varOffset */
         emitRM("LDC", ac, varOffset, 0, "id: load varOffset");
@@ -535,6 +544,14 @@ static void genParam(TreeNode* tree)
     switch (tree->kind.stmt) {
 
     case ArrParamK:
+		if (TraceCode) emitComment("-> param");
+		emitComment(tree->attr.arr.name);
+
+		--localOffset;
+		++numOfParams;
+
+		if (TraceCode) emitComment("<- param");
+		break;
     case NonArrParamK:
         if (TraceCode) emitComment("-> param");
         emitComment(tree->attr.name);
