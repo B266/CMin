@@ -90,12 +90,12 @@ static void genExp(TreeNode* tree, int lhs)
         /* gen code for ac = left arg */
         cGen(p1);
         /* gen code to push left operand */
-        emitRM("ST", ac, localOffset--, mp, "op: push left");
+        emitRM("ST", ac, localOffset--, mp, "op: push left!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         /* gen code for ac = right operand */
         cGen(p2);
         /* now load left operand */
-        emitRM("LD", ac1, ++localOffset, mp, "op: load left");
+        emitRM("LD", ac1, ++localOffset, mp, "op: load left***************************************************");
         
         switch (tree->attr.op) {
             
@@ -116,42 +116,42 @@ static void genExp(TreeNode* tree, int lhs)
             emitRM("JLT", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case LESSTHAN");
             break;
         case LESSOREQUAL:
             emitRO("SUB", ac, ac1, ac, "op <=");
             emitRM("JLE", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case LESSOREQUAL");
             break;
         case GREATERTHAN:
             emitRO("SUB", ac, ac1, ac, "op >");
             emitRM("JGT", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case GREATERTHAN");
             break;
         case GREATEROREQUAL:
             emitRO("SUB", ac, ac1, ac, "op >=");
             emitRM("JGE", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case GREATEROREQUAL");
             break;
         case EEQUAL:
             emitRO("SUB", ac, ac1, ac, "op ==");
             emitRM("JEQ", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case EEQUAL");
             break;
         case UNEQUAL:
             emitRO("SUB", ac, ac1, ac, "op !=");
             emitRM("JNE", ac, 2, pc, "br if true");
             emitRM("LDC", ac, 0, ac, "false case");
             emitRM("LDA", pc, 1, pc, "unconditional jmp");
-            emitRM("LDC", ac, 1, ac, "true case");
+            emitRM("LDC", ac, 1, ac, "true case UNEQUAL");
             break;
         default:
             emitComment("BUG: Unknown operator ");
@@ -172,7 +172,7 @@ static void genExp(TreeNode* tree, int lhs)
         break; /* ConstK */
 
     case IdK:
-    case ArrIdK:
+    case ArrIdK:    //*************************************************************************************************************************
         if (TraceCode) {
             sprintf(buffer, "-> Id (%s)", tree->attr.name);
             emitComment(buffer);
@@ -471,7 +471,7 @@ static void genDecl(TreeNode* tree)
         emitComment("func: function body starts here");
 
         /* backpatch */
-        emitBackup(loadFuncLoc);
+        emitBackup(loadFuncLoc);   
         emitRM("LDC", ac1, funcBodyLoc, 0, "func: load function location");
         emitRestore();
 
@@ -497,6 +497,8 @@ static void genDecl(TreeNode* tree)
         emitBackup(jmpLoc);
         emitRM_Abs("LDA", pc, nextDeclLoc,"func: unconditional jump to next declaration");
         emitRestore();
+
+       
 
         isInFunc = FALSE;
 

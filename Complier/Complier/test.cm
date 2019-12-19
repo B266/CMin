@@ -1,12 +1,11 @@
-//666
-void cout(){
-output(1);
-}
-void main(void)
+int main()
 {
-int x; int y;
-x=input();
-y=input();
-cout();
-output(x+y);
+	int i;
+	i=4545;
+	while(i<5)
+	{
+		i=i+11101;
+		output(i);
+	}
+	//output(2);
 }

@@ -444,8 +444,7 @@ static void checkNode(TreeNode* t)
 		case CallK:
 		{
 			char* callingFuncName = t->attr.name;
-			TreeNode* funcDecl =
-				st_bucket(callingFuncName)->treeNode;
+			TreeNode* funcDecl =st_bucket(callingFuncName)->treeNode;
 			TreeNode* arg;
 			TreeNode* param;
 
