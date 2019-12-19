@@ -141,8 +141,24 @@ static void insertNode(TreeNode* t)
 	case ExpK:
 		switch (t->kind.exp)
 		{
-		case IdK:
+		
 		case ArrIdK:
+			fprintf(listing, "ExpK name %s\n", t->attr.arr.name);
+			if (st_lookup(t->attr.arr.name) == -1)
+				/* not yet in table , error */
+			{
+				Scope nowScope = sc_top();
+				fprintf(listing, "can't find %s name\n", t->attr.arr.name);
+				symbolError(t, "undelcared symbol");
+			}
+
+			else
+				/* already in table, so ignore location
+				   add line number of use only */
+				st_add_lineno(t->attr.arr.name, t->lineno);
+			break;
+
+		case IdK:
 		case CallK:
 			fprintf(listing, "ExpK name %s\n", t->attr.name);
 			/* not yet in table, so treat as new definition */
@@ -417,7 +433,15 @@ static void checkNode(TreeNode* t)
 		case IdK:
 		case ArrIdK:
 		{
-			char* symbolName = t->attr.name;
+			char* symbolName;
+			if (t->kind.exp == IdK)
+			{
+				symbolName = t->attr.name;
+			}
+			else
+			{
+				symbolName = t->attr.arr.name;
+			}
 			const BucketList bucket =
 				st_bucket(symbolName);
 			TreeNode* symbolDecl = NULL;
@@ -444,7 +468,12 @@ static void checkNode(TreeNode* t)
 		case CallK:
 		{
 			char* callingFuncName = t->attr.name;
-			TreeNode* funcDecl =st_bucket(callingFuncName)->treeNode;
+
+			BucketList funcBucketList = st_bucket(callingFuncName);
+			if (funcBucketList == NULL)
+				break;
+			TreeNode* funcDecl =
+				funcBucketList->treeNode;
 			TreeNode* arg;
 			TreeNode* param;
 

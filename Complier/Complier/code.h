@@ -30,7 +30,7 @@
 /*Procedure emitComment prints a comment line
  *with comment c in the code file
  */
-void emitComment(char* c);
+void emitComment(const char* c);
 
 /*Procdure emitRO emits a register-only TM instruction
  *op=the opcode
@@ -39,7 +39,7 @@ void emitComment(char* c);
  *t=2nd source register
  *c=acomment to be printed if TraceCode is TRUE
  */
-void emitRO(char* op, int r, int s, int t, char* c);
+void emitRO(const char* op, int r, int s, int t,const char* c);
 
 /*Procdure emitRM emits a register-to-memory TM instruction
  *op=the opcode 
@@ -48,7 +48,7 @@ void emitRO(char* op, int r, int s, int t, char* c);
  *s=the base register
  *c=acomment to be printed if TraceCode is TRUE
  */
-void emitRM(char* op, int r, int d, int s, char* c);
+void emitRM(const char* op, int r, int d, int s,const char* c);
 
 /*Function emitSkip skips "howMany" code
  *location for later backpach.It also
@@ -75,6 +75,6 @@ void emitRestore(void);
  *a=an absolute location in memory
  *c=a comment to be printed if TraceCode is TRUE
  */
-void emitRM_Abs(char* op, int r, int a, char* c);
+void emitRM_Abs(const char* op, int r, int a,const char* c);
 
 #endif
