@@ -1,11 +1,19 @@
+/* A C minus program */
+
+void f(int x,int y)
+{
+	int z;
+
+	output(x);
+	output(y);
+}
 
 void main()
 {
-	int i;
-	i=0;
-	while(i<5)
-	{
-		i=i+1;
-		output(0);
-	}
+	int x;
+	int y;
+	x=2;
+	y=3;
+	f(x,y);
+	
 }

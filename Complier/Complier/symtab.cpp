@@ -222,6 +222,8 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 					t = t->next;
 				}
 
+				fprintf(listing, "memloc %d  ", l->memloc);
+
 				fprintf(listing, "\n");
 				l = l->next;
 			}

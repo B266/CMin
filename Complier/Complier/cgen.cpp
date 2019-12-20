@@ -12,12 +12,12 @@
 #include "util.h"
 
 static char buffer[1000];
-#define ofpFO 1
+#define ofpFO 0
 #define retFO -1
 #define initFO -2
 
 static int globalOffset = 0;
-static int localOffset = initFO;
+static int frameoffset = initFO;
 
 /* numOfParams is the number of parameters in current frame */
 static int numOfParams = 0;
@@ -78,10 +78,10 @@ static void genExp(TreeNode* tree, int lhs)
     int varOffset, baseReg;
     int numOfArgs;
     TreeNode* p1, * p2;
-     switch (tree->kind.exp) {
-     
+    switch (tree->kind.exp) {
+
     case OpK:
-        printToken(tree->attr.op, "\0");
+        //printToken(tree->attr.op, "\0");
         if (TraceCode) emitComment("-> Op");
 
         p1 = tree->child[0];
@@ -90,15 +90,15 @@ static void genExp(TreeNode* tree, int lhs)
         /* gen code for ac = left arg */
         cGen(p1);
         /* gen code to push left operand */
-        emitRM("ST", ac, localOffset--, mp, "op: push left");
+        emitRM("ST", ac, frameoffset--, fp, "op: push left");
 
         /* gen code for ac = right operand */
         cGen(p2);
         /* now load left operand */
-        emitRM("LD", ac1, ++localOffset, mp, "op: load left");
-        
+        emitRM("LD", ac1, ++frameoffset, fp, "op: load left");
+
         switch (tree->attr.op) {
-            
+
         case PLUS:
             emitRO("ADD", ac, ac1, ac, "op +");
             break;
@@ -155,7 +155,7 @@ static void genExp(TreeNode* tree, int lhs)
             break;
         default:
             emitComment("BUG: Unknown operator ");
-            
+
             //fprintf(code, "%5s", tree->attr.name);
             break;
         } /* case op */
@@ -173,15 +173,15 @@ static void genExp(TreeNode* tree, int lhs)
 
     case IdK:
     case ArrIdK:
-		char* IdName;
-		if (tree->kind.exp == IdK)
-		{
-			IdName = tree->attr.name;
-		}
-		else
-		{
-			IdName = tree->attr.arr.name;
-		}
+        char* IdName;
+        if (tree->kind.exp == IdK)
+        {
+            IdName = tree->attr.name;
+        }
+        else
+        {
+            IdName = tree->attr.arr.name;
+        }
         if (TraceCode) {
             sprintf(buffer, "-> Id (%s)", IdName);
             emitComment(buffer);
@@ -191,7 +191,10 @@ static void genExp(TreeNode* tree, int lhs)
         if (loc >= 0)
             varOffset = initFO - loc;
         else
+        {
             varOffset = -(st_lookup(IdName));
+        }
+
 
         /* generate code to load varOffset */
         emitRM("LDC", ac, varOffset, 0, "id: load varOffset");
@@ -202,7 +205,7 @@ static void genExp(TreeNode* tree, int lhs)
             if (loc >= 0 && loc < numOfParams) {
 
                 /* generate code to push address */
-                emitRO("ADD", ac, mp, ac, "id: load the memory address of base address of array to ac");
+                emitRO("ADD", ac, fp, ac, "id: load the memory address of base address of array to ac");
                 emitRO("LD", ac, 0, ac, "id: load the base address of array to ac");
             }
             else {
@@ -210,21 +213,26 @@ static void genExp(TreeNode* tree, int lhs)
 
                 /* generate code for address */
                 if (loc >= 0)
+                {
                     /* symbol found in current frame */
-                    emitRO("ADD", ac, mp, ac, "id: calculate the address");
+                    emitRO("ADD", ac, fp, ac, "id: calculate the address");
+                }
                 else
+                {
                     /* symbol found in global scope */
                     emitRO("ADD", ac, gp, ac, "id: calculate the address");
+
+                }
             }
 
             /* generate code to push localOffset */
-            emitRM("ST", ac, localOffset--, mp, "id: push base address");
+            emitRM("ST", ac, frameoffset--, fp, "id: push base address");
 
             /* generate code for index expression */
             p1 = tree->child[0];
             cGen(p1);
             /* gen code to get correct varOffset */
-            emitRM("LD", ac1, ++localOffset, mp, "id: pop base address");
+            emitRM("LD", ac1, ++frameoffset, fp, "id: pop base address");
             emitRO("SUB", ac, ac1, ac, "id: calculate element address with index");
         }
         else {
@@ -232,11 +240,16 @@ static void genExp(TreeNode* tree, int lhs)
 
             /* generate code for address */
             if (loc >= 0)
+            {
                 /* symbol found in current frame */
-                emitRO("ADD", ac, mp, ac, "id: calculate the address");
+                emitRO("ADD", ac, fp, ac, "id: calculate the address found in current frame");
+            }
             else
+            {
                 /* symbol found in global scope */
-                emitRO("ADD", ac, gp, ac, "id: calculate the address");
+                emitRO("ADD", ac, gp, ac, "id: calculate the address found in global scope");
+
+            }
         }
 
         if (lhs) {
@@ -267,7 +280,7 @@ static void genExp(TreeNode* tree, int lhs)
                 genExp(p1, FALSE);
 
             /* generate code to push argument value */
-            emitRM("ST", ac, localOffset + initFO - (numOfArgs++), mp,
+            emitRM("ST", ac, frameoffset + initFO - (numOfArgs++), fp,
                 "call: push argument");
 
             p1 = p1->sibling;
@@ -280,15 +293,15 @@ static void genExp(TreeNode* tree, int lhs)
         else if (strcmp(tree->attr.name, "output") == 0) {
             /* generate code for output(arg) function */
             /* generate code for value to write */
-            emitRM("LD", ac, localOffset + initFO, mp, "load arg to ac");
+            emitRM("LD", ac, frameoffset + initFO, fp, "load arg to ac");
             /* now output it */
             emitRO("OUT", ac, 0, 0, "write ac");
         }
         else {
             /* generate code to store current mp */
-            emitRM("ST", mp, localOffset + ofpFO, mp, "call: store current mp");
+            emitRM("ST", fp, frameoffset + ofpFO, fp, "call: store current mp");
             /* generate code to push new frame */
-            emitRM("LDA", mp, localOffset, mp, "call: push new frame");
+            emitRM("LDA", fp, frameoffset, fp, "call: push new frame");
             /* generate code to save return in ac */
             emitRM("LDA", ac, 1, pc, "call: save return in ac");
 
@@ -297,7 +310,7 @@ static void genExp(TreeNode* tree, int lhs)
             emitRM("LD", pc, loc, gp, "call: relative jump to function entry");
 
             /* generate code to pop current frame */
-            emitRM("LD", mp, ofpFO, mp, "call: pop current frame");
+            emitRM("LD", fp, ofpFO, fp, "call: pop current frame");
         }
 
         if (TraceCode)  emitComment("<- Call");
@@ -326,12 +339,12 @@ static void genStmt(TreeNode* tree) {
         // generate code for ac = address of lhs
         genExp(p1, TRUE);
         // generate code to push lhs
-        emitRM("ST", ac, localOffset--, mp, "assign: push left (address)");
+        emitRM("ST", ac, frameoffset--, fp, "assign: push left (address)");
 
         // generate code for ac = rhs
         cGen(p2);
         // now load lhs
-        emitRM("LD", ac1, ++localOffset, mp, "assign: load left (address)");
+        emitRM("LD", ac1, ++frameoffset, fp, "assign: load left (address)");
 
         emitRM("ST", ac, 0, ac1, "assign: store value");
 
@@ -346,7 +359,7 @@ static void genStmt(TreeNode* tree) {
 
         /* update localOffset with the offset derived from declarations */
         offset = getBlockOffset(p1);
-        localOffset -= offset;
+        frameoffset -= offset;
 
         /* push scope */
         sc_push(tree->attr.scope);
@@ -358,7 +371,7 @@ static void genStmt(TreeNode* tree) {
         sc_pop();
 
         /* restore localOffset */
-        localOffset -= offset;
+        frameoffset -= offset;
 
         if (TraceCode)emitComment("<-compound");
 
@@ -433,7 +446,7 @@ static void genStmt(TreeNode* tree) {
 
         /* generate code for expression */
         cGen(p1);
-        emitRM("LD", pc, retFO, mp, "return: to caller");
+        emitRM("LD", pc, retFO, fp, "return: to caller");
 
         if (TraceCode) emitComment("<- return");
 
@@ -485,10 +498,10 @@ static void genDecl(TreeNode* tree)
         emitRestore();
 
         /* generate code to store return address */
-        emitRM("ST", ac, retFO, mp, "func: store return address");
+        emitRM("ST", ac, retFO, fp, "func: store return address");
 
         /* calculate localOffset and numOfParams */
-        localOffset = initFO;
+        frameoffset = initFO;
         numOfParams = 0;
         cGen(p1);
 
@@ -499,12 +512,12 @@ static void genDecl(TreeNode* tree)
         cGen(p2);
 
         /* generate code to load pc with return address */
-        emitRM("LD", pc, retFO, mp, "func: load pc with return address");
+        emitRM("LD", pc, retFO, fp, "func: load pc with return address");
 
         /* backpatch */
         nextDeclLoc = emitSkip(0);
         emitBackup(jmpLoc);
-        emitRM_Abs("LDA", pc, nextDeclLoc,"func: unconditional jump to next declaration");
+        emitRM_Abs("LDA", pc, nextDeclLoc, "func: unconditional jump to next declaration");
         emitRestore();
 
         isInFunc = FALSE;
@@ -526,7 +539,7 @@ static void genDecl(TreeNode* tree)
             size = 1;
 
         if (isInFunc == TRUE)
-            localOffset -= size;
+            frameoffset -= size;
         else
             globalOffset -= size;
 
@@ -544,19 +557,19 @@ static void genParam(TreeNode* tree)
     switch (tree->kind.stmt) {
 
     case ArrParamK:
-		if (TraceCode) emitComment("-> param");
-		emitComment(tree->attr.arr.name);
+        if (TraceCode) emitComment("-> param");
+        emitComment(tree->attr.arr.name);
 
-		--localOffset;
-		++numOfParams;
+        --frameoffset;
+        ++numOfParams;
 
-		if (TraceCode) emitComment("<- param");
-		break;
+        if (TraceCode) emitComment("<- param");
+        break;
     case NonArrParamK:
         if (TraceCode) emitComment("-> param");
         emitComment(tree->attr.name);
 
-        --localOffset;
+        --frameoffset;
         ++numOfParams;
 
         if (TraceCode) emitComment("<- param");
@@ -597,14 +610,14 @@ static void cGen(TreeNode* tree)
 
 void genMainCall() {
     emitRM("LDC", ac, globalOffset, 0, "init: load globalOffset");
-    emitRO("ADD", mp, mp, ac, "init: initialize mp with globalOffset");
+    emitRO("ADD", fp, fp, ac, "init: initialize mp with globalOffset");
 
     if (TraceCode) emitComment("-> Call");
 
     /* generate code to store current mp */
-    emitRM("ST", mp, ofpFO, mp, "call: store current mp");
+    emitRM("ST", fp, ofpFO, fp, "call: store current mp");
     /* generate code to push new frame */
-    emitRM("LDA", mp, 0, mp, "call: push new frame");
+    emitRM("LDA", fp, 0, fp, "call: push new frame");
     /* generate code to save return in ac */
     emitRM("LDA", ac, 1, pc, "call: save return in ac");
 
@@ -612,7 +625,7 @@ void genMainCall() {
     emitRM("LDC", pc, mainFuncLoc, 0, "call: unconditional jump to main() entry");
 
     /* generate code to pop current frame */
-    emitRM("LD", mp, ofpFO, mp, "call: pop current frame");
+    emitRM("LD", fp, ofpFO, fp, "call: pop current frame");
 
     if (TraceCode) emitComment("<- Call");
 }
@@ -628,7 +641,7 @@ void genMainCall() {
  */
 void codeGen(TreeNode* syntaxTree, char* codefile)
 {
-    char* s = (char *)malloc(strlen(codefile) + 7);
+    char* s = (char*)malloc(strlen(codefile) + 7);
     strcpy(s, "File: ");
     strcat(s, codefile);
     emitComment("TINY Compilation to TM Code");
@@ -636,7 +649,7 @@ void codeGen(TreeNode* syntaxTree, char* codefile)
     /* generate standard prelude */
     emitComment("Standard prelude:");
     emitRM("LD", gp, 0, ac, "load gp with maxaddress");
-    emitRM("LDA", mp, 0, gp, "copy gp to mp");
+    emitRM("LDA", fp, 0, gp, "copy gp to mp");
     emitRM("ST", ac, 0, ac, "clear location 0");
     emitComment("End of standard prelude.");
     /* push global scope */

@@ -13,7 +13,8 @@
 
 /*mp = "memory pointer" points
  *to the top of memory(for temp storage)*/
-#define mp 6
+/*fp = "frame pointer*/
+#define fp 6
 
 /*gp = "global pointer" points
  *to bottom of memory for (global) variable storage*/
