@@ -467,10 +467,10 @@ static void checkNode(TreeNode* t)
 				break;
 			symbolDecl = bucket->treeNode;
 
-			if (t->kind.exp == ArrIdK) {
-				if (symbolDecl->kind.decl != ArrVarK )
+			if (t->type == IntegerArray) {
+				if (symbolDecl->type != IntegerArray)
 					typeError(t, "expected array symbol");
-				else if (t->child[1]->type != Integer)
+				else if (t->child[1]!=NULL&& t->child[1]->type != Integer)
 					typeError(t, "index expression should have integer type");
 				/*
 				else
