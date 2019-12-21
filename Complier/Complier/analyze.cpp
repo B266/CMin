@@ -460,7 +460,7 @@ static void checkNode(TreeNode* t)
 			if (t->kind.exp == ArrIdK) {
 				if (symbolDecl->kind.decl != ArrVarK )
 					typeError(t, "expected array symbol");
-				else if (t->child[0]->type != IntegerArray)
+				else if (t->child[1]->type != Integer)
 					typeError(t, "index expression should have integer type");
 				/*
 				else
@@ -527,7 +527,7 @@ static void checkNode(TreeNode* t)
 					that of parameters */
 				typeError(t->child[0], "the number of parameters is wrong");
 
-			t->type = funcDecl->type;  ////////////maybe change int to arrint
+			//t->type = funcDecl->type;  ////////////maybe change int to arrint
 		}
 		break;
 		default:

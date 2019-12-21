@@ -15,38 +15,44 @@
 *-> assign
 *-> Id (x)
   7:    LDC  0,-2(0) 	id: load varOffset
-  8:     ADD   0,6,0	id: calculate the address found in current frame
-  9:    LDA  0,0(0) 	load id address
+  8:     ADD   0,6,0	id: calculate the address
+  9:     ST  0,-5(6) 	id: push base address
+ 10:     LD  1,-5(6) 	id: pop base address
+ 11:     SUB   0,1,0	id: calculate element address with index
+ 12:    LDA  0,0(0) 	load id address
 *<- Id
- 10:     ST  0,-5(6) 	assign: push left (address)
+ 13:     ST  0,-5(6) 	assign: push left (address)
 *-> Call
- 11:      IN   0,0,0	read integer value
+ 14:      IN   0,0,0	read integer value
 *<- Call
- 12:     LD  1,-5(6) 	assign: load left (address)
- 13:     ST  0,0(1) 	assign: store value
+ 15:     LD  1,-5(6) 	assign: load left (address)
+ 16:     ST  0,0(1) 	assign: store value
 *<- assign
 *-> Call
 *-> Id (x)
- 14:    LDC  0,-2(0) 	id: load varOffset
- 15:     ADD   0,6,0	id: calculate the address found in current frame
- 16:     LD  0,0(0) 	load id value
+ 17:    LDC  0,-2(0) 	id: load varOffset
+ 18:     ADD   0,6,0	id: calculate the address
+ 19:     ST  0,-5(6) 	id: push base address
+ 20:     LD  1,-5(6) 	id: pop base address
+ 21:     SUB   0,1,0	id: calculate element address with index
+ 22:     LD  0,0(0) 	load id value
 *<- Id
- 17:     ST  0,-7(6) 	call: push argument
- 18:     LD  0,-7(6) 	load arg to ac
- 19:     OUT   0,0,0	write ac
+ 23:     ST  0,-7(6) 	call: push argument
+ 24:     LD  0,-7(6) 	load arg to ac
+ 25:     OUT   0,0,0	write ac
 *<- Call
 *<-compound
- 20:     LD  7,-1(6) 	func: load pc with return address
-  5:     LDA 7,15(7)	func: unconditional jump to next declaration
+ 26:     LD  7,-1(6) 	func: load pc with return address
+  5:     LDA 7,21(7)	func: unconditional jump to next declaration
 * frameoffset (-8) 
- 21:    LDC  0,-1(0) 	init: load globalOffset
- 22:     ADD   6,6,0	init: initialize mp with globalOffset
+ 27:    LDC  0,-1(0) 	init: load globalOffset
+ 28:     ADD   6,6,0	init: initialize mp with globalOffset
 *-> Call
- 23:     ST  6,0(6) 	call: store current mp
- 24:    LDA  6,0(6) 	call: push new frame
- 25:    LDA  0,1(7) 	call: save return in ac
- 26:    LDC  7,6(0) 	call: unconditional jump to main() entry
- 27:     LD  6,0(6) 	call: pop current frame
+ 29:     ST  6,0(6) 	call: store current mp
+ 30:    LDA  6,0(6) 	call: push new frame
+ 31:    LDA  0,1(7) 	call: save return in ac
+ 32:    LDC  7,6(0) 	call: unconditional jump to main() entry
+ 33:     LD  6,0(6) 	call: pop current frame
 *<- Call
 *End of execution.
- 28:    HALT   0,0,0	
+ 34:    HALT   0,0,0	
