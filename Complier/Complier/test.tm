@@ -96,28 +96,28 @@
 *-> assign
 *-> Id (x)
  50:    LDC  0,-2(0) 	id: load varOffset
- 51:     ADD   0,6,0	id: calculate the address
- 52:     ST  0,-6(6) 	id: push base address
- 53:     LD  1,-6(6) 	id: pop base address
- 54:     SUB   0,1,0	id: calculate element address with index
- 55:    LDA  0,0(0) 	load id address
+ 51:     ADD   0,6,0	id: calculate the address found in current frame
+ 52:    LDA  0,0(0) 	load id address
 *<- Id
- 56:     ST  0,-6(6) 	assign: push left (address)
+ 53:     ST  0,-6(6) 	assign: push left (address)
 *-> Call
- 57:      IN   0,0,0	read integer value
+ 54:      IN   0,0,0	read integer value
 *<- Call
- 58:     LD  1,-6(6) 	assign: load left (address)
- 59:     ST  0,0(1) 	assign: store value
+ 55:     LD  1,-6(6) 	assign: load left (address)
+ 56:     ST  0,0(1) 	assign: store value
 *<- assign
 *<-compound
- 60:     LDA 7,-36(7)	while: jmp back to test
- 36:     JEQ 0,24(7)	while: jmp to end
+ 57:     LDA 7,-33(7)	while: jmp back to test
+ 36:     JEQ 0,21(7)	while: jmp to end
 *<- iter.
 *-> Call
 *-> Id (x)
- 61:    LDC  0,-2(0) 	id: load varOffset
- 62:     ADD   0,6,0	id: calculate the address found in current frame
- 63:    LDA  0,0(0) 	load id address
+ 58:    LDC  0,-2(0) 	id: load varOffset
+ 59:     ADD   0,6,0	id: calculate the address
+ 60:     ST  0,-6(6) 	id: push base address
+ 61:     LD  1,-6(6) 	id: pop base address
+ 62:     SUB   0,1,0	id: calculate element address with index
+ 63:     LD  0,0(0) 	load id value
 *<- Id
  64:     ST  0,-8(6) 	call: push argument
  65:     ST  6,-6(6) 	call: store current mp

@@ -363,7 +363,7 @@ static void checkNode(TreeNode* t)
 		switch (t->kind.stmt)
 		{
 		case AssignK:
-			if (t->child[0]->type == IntegerArray)
+			if (t->child[0]->child[0]->type == IntegerArray)
 				/* no value can be assigned to array variable */
 				typeError(t->child[0], "assignment to array variable");
 			else if (t->child[1]->type == Void)
@@ -458,10 +458,9 @@ static void checkNode(TreeNode* t)
 			symbolDecl = bucket->treeNode;
 
 			if (t->kind.exp == ArrIdK) {
-				if (symbolDecl->kind.decl != ArrVarK &&
-					symbolDecl->kind.param != ArrParamK)
+				if (symbolDecl->kind.decl != ArrVarK )
 					typeError(t, "expected array symbol");
-				else if (t->child[0]->type != Integer)
+				else if (t->child[0]->type != IntegerArray)
 					typeError(t, "index expression should have integer type");
 				else
 					t->type = Integer;
