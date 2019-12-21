@@ -71,6 +71,7 @@ TreeNode* newStmtNode(StmtKind kind)
 		t->nodeKind = StmtK;
 		t->kind.stmt = kind;
 		t->lineno = lineno;
+		t->isInFuncCom = false;
 	}
 	return t;
 }
@@ -91,6 +92,7 @@ TreeNode* newExpNode(ExpKind kind)
 		t->kind.exp = kind;
 		t->lineno = lineno;
 		t->type = Void;
+		t->isInFuncCom = false;
 	}
 	return t;
 }
@@ -110,6 +112,7 @@ TreeNode* newDeclNode(DeclKind kind)
 		t->nodeKind = DeclK;
 		t->kind.decl = kind;
 		t->lineno = lineno;
+		t->isInFuncCom = false;
 	}
 	return t;
 }
@@ -129,6 +132,7 @@ TreeNode* newParamNode(ParamKind kind)
 		t->nodeKind = ParamK;
 		t->kind.param = kind;
 		t->lineno = lineno;
+		t->isInFuncCom = false;
 	}
 	return t;
 }
@@ -148,6 +152,7 @@ TreeNode* newTypeNode(TypeKind kind)
 		t->nodeKind = TypeK;
 		t->kind.type = kind;
 		t->lineno = lineno;
+		t->isInFuncCom = false;
 	}
 	return t;
 }

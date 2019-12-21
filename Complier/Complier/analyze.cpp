@@ -61,7 +61,7 @@ static void insertIOFunc(void)
 
 	char* tempName = new char[10];
 	strcpy(tempName, "input");
-	fprintf(listing, "func input add!\n");
+	
 	st_insert(tempName, -1, addLocation(), func);
 
 	func = newDeclNode(FuncK);
@@ -91,7 +91,6 @@ static void insertIOFunc(void)
 	
 	char* tempName1 = new char[10];
 	strcpy(tempName1, "output");
-	fprintf(listing, "func output add!\n");
 	st_insert(tempName1, -1, addLocation(), func);
 }
 
@@ -128,8 +127,12 @@ static void insertNode(TreeNode* t)
 				preserveLastScope = FALSE;
 			}
 			else {
-				Scope scope = sc_create(funcName);
-				sc_push(scope);
+				if (t->isInFuncCom)
+				{
+					Scope scope = sc_create(funcName);
+					sc_push(scope);
+				}
+				
 			}
 			t->attr.scope = sc_top();
 			break;
@@ -143,12 +146,10 @@ static void insertNode(TreeNode* t)
 		{
 		
 		case ArrIdK:
-			fprintf(listing, "ExpK name %s\n", t->attr.arr.name);
 			if (st_lookup(t->attr.arr.name) == -1)
 				/* not yet in table , error */
 			{
 				Scope nowScope = sc_top();
-				fprintf(listing, "can't find %s name\n", t->attr.arr.name);
 				symbolError(t, "undelcared symbol");
 			}
 
@@ -160,13 +161,11 @@ static void insertNode(TreeNode* t)
 
 		case IdK:
 		case CallK:
-			fprintf(listing, "ExpK name %s\n", t->attr.name);
 			/* not yet in table, so treat as new definition */
 			if (st_lookup(t->attr.name) == -1)
 				/* not yet in table , error */
 			{
 				Scope nowScope= sc_top();
-				fprintf(listing, "can't find %s name\n", t->attr.name);
 				symbolError(t, "undelcared symbol");
 			}
 				
@@ -189,12 +188,8 @@ static void insertNode(TreeNode* t)
 				symbolError(t, "function already declared");
 				break;
 			}
-			fprintf(listing, "decl fun %s\n", funcName);
-			if (t->type == Integer)
-			{
-				fprintf(listing, "type Int\n");
-			}
 			
+
 			st_insert(funcName, t->lineno, addLocation(), t);
 			sc_push(sc_create(funcName));
 			preserveLastScope = TRUE;
@@ -220,17 +215,24 @@ static void insertNode(TreeNode* t)
 				}
 				if (t->kind.decl == VarK) {
 					name = t->attr.name;
-					t->type = Integer;
 				}
 				else {
 					name = t->attr.arr.name;
-					t->type = IntegerArray;
+
 				}
 
 				if (st_lookup_top(name) < 0)
 				{
-					fprintf(listing, "decl var/vars %s\n", name);
-					st_insert(name, t->lineno, addLocation(), t);
+					
+					if (t->type == Integer)
+					{
+						st_insert(name, t->lineno, addLocation(), t);
+					}
+					else if (t->type == IntegerArray)
+					{
+						st_insert(name, t->lineno, addLocation(t->attr.arr.size), t);
+					}
+					
 				}
 				else
 					symbolError(t, "symbol already declared for current scope");
@@ -247,7 +249,6 @@ static void insertNode(TreeNode* t)
 		else if (t->kind.param == NonArrParamK)
 		{
 			if (st_lookup(t->attr.name) == -1) {
-				fprintf(listing, "decl ParamK %s\n", t->attr.name);
 				st_insert(t->attr.name, t->lineno, addLocation(), t);
 				if (t->kind.param == NonArrParamK)
 					t->type = Integer;
@@ -258,7 +259,6 @@ static void insertNode(TreeNode* t)
 		else if (t->kind.param == ArrParamK)
 		{
 			if (st_lookup(t->attr.arr.name) == -1) {
-				fprintf(listing, "decl ArrParamK %s\n", t->attr.arr.name);
 				st_insert(t->attr.arr.name, t->lineno, addLocation(), t);
 				/*
 				if (t->kind.param == NonArrParamK)
@@ -284,7 +284,11 @@ static void afterInsertNode(TreeNode* t)
 		switch (t->kind.stmt)
 		{
 		case CompK:
-			sc_pop();
+			if (t->isInFuncCom)
+			{
+				sc_pop();
+			}
+			
 			break;
 		default:
 			break;
@@ -356,7 +360,7 @@ static void checkNode(TreeNode* t)
 		switch (t->kind.stmt)
 		{
 		case AssignK:
-			if (t->child[0]->type == IntegerArray)
+			if (t->child[0]->child[0]->type == IntegerArray)
 				/* no value can be assigned to array variable */
 				typeError(t->child[0], "assignment to array variable");
 			else if (t->child[1]->type == Void)
@@ -450,18 +454,21 @@ static void checkNode(TreeNode* t)
 				break;
 			symbolDecl = bucket->treeNode;
 
-			if (t->kind.exp == ArrIdK) {
-				if (symbolDecl->kind.decl != ArrVarK &&
-					symbolDecl->kind.param != ArrParamK)
+			if (t->type == IntegerArray) {
+				if (symbolDecl->type != IntegerArray)
 					typeError(t, "expected array symbol");
-				else if (t->child[0]->type != Integer)
+				else if (t->child[1]!=NULL&& t->child[1]->type != Integer)
 					typeError(t, "index expression should have integer type");
+				/*
 				else
 					t->type = Integer;
+				*/
 			}
+			/*
 			else {
-				t->type = symbolDecl->type;
+				t->type = symbolDecl->type; ////////////////////////////////////////////////////////////maybe change int to arrint
 			}
+			*/
 
 		}
 		break;
@@ -517,7 +524,7 @@ static void checkNode(TreeNode* t)
 					that of parameters */
 				typeError(t->child[0], "the number of parameters is wrong");
 
-			t->type = funcDecl->type;
+			//t->type = funcDecl->type;  ////////////maybe change int to arrint
 		}
 		break;
 		default:

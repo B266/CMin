@@ -101,6 +101,8 @@ typedef struct treeNode
 		struct ScopeRec* scope;
 	}attr;
 	ExpType type;	/* for type checking of exps */
+	bool isInFuncCom;  // if isInFuncCom == true stack in
+	bool isAInt; // like  a[x] is true , a is false
 
 }TreeNode;
 

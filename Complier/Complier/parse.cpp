@@ -164,7 +164,6 @@ TreeNode* declaration()
 	TreeNode* t = NULL;
 	TreeNode* p = t;
 	TokenType tokentype = token;
-	TreeNode* q = NULL;
 	if (token == INT) {
 		match(INT);
 		if (token == ID) {
@@ -173,24 +172,24 @@ TreeNode* declaration()
 			if (token == SEMI) {
 				t = var_declaration();
 				t->attr.name = idname;
-				q = newTypeNode(TypeNameK);
-				q->type = Integer;
 				t->type = Integer;
+				TreeNode* q = newTypeNode(TypeNameK);
+				q->type = Integer;
 				t->child[0] = q;
 			}
 			else if (token == LMPAREN) {
 				t = arrvar_declaration();
 				t->attr.arr.name = idname;
-				q = newTypeNode(TypeNameK);
-				q->type = Integer;
-				t->type = Integer;
+				t->type = IntegerArray;
+				TreeNode* q = newTypeNode(TypeNameK);
+				q->type = IntegerArray;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {
 				t = fun_declaration();
 				t->attr.name = idname;
 				t->type = Integer;
-				q = newTypeNode(TypeNameK);
+				TreeNode* q = newTypeNode(TypeNameK);
 				q->type = Integer;
 				t->child[0] = q;
 			}
@@ -209,25 +208,25 @@ TreeNode* declaration()
 			if (token == SEMI) {
 				t = var_declaration();
 				t->attr.name = idname;
-				q = newTypeNode(TypeNameK);
-				q->type = Void;
 				t->type = Void;
+				TreeNode* q = newTypeNode(TypeNameK);
+				q->type = Void;
 				t->child[0] = q;
 			}
 			else if (token == LMPAREN) {
 				t = arrvar_declaration();
 				t->attr.arr.name = idname;
-				q = newTypeNode(TypeNameK);
-				q->type = Void;
 				t->type = Void;
+				TreeNode* q = newTypeNode(TypeNameK);
+				q->type = Void;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {
 				t = fun_declaration();
 				t->attr.name = idname;
-				q = newTypeNode(TypeNameK);
-				q->type = Void;
 				t->type = Void;
+				TreeNode* q = newTypeNode(TypeNameK);
+				q->type = Void;
 				t->child[0] = q;
 			}
 			else {
@@ -252,7 +251,7 @@ TreeNode* var_declaration() {
 	return t;
 }
 
-/* 4. arrvar_declaration -> type_specifier ID [ NUM ] ; */
+/* 5. arrvar_declaration -> type_specifier ID [ NUM ] ; */
 TreeNode* arrvar_declaration() {
 	TreeNode* t = newDeclNode(ArrVarK);
 	match(LMPAREN);
@@ -277,10 +276,11 @@ TreeNode* fun_declaration() {
 	t->child[1] = params();
 	match(RPAREN);
 	t->child[2] = compound_stmt();
+	t->child[2]->isInFuncCom = true;
 	return t;
 }
 
-/* 7. params -> param_list | void */
+/* 7. params -> param_list | void | empty */
 TreeNode* params() {
 	TreeNode* t = NULL;
 	if (token == VOID) {
@@ -298,8 +298,8 @@ TreeNode* param_list() {
 	TreeNode* p = t;
 	while (token == COMMA)
 	{
-		TreeNode* q;
 		match(COMMA);
+		TreeNode* q;
 		q = param();
 		if (q != NULL) {
 			if (t == NULL)
@@ -316,18 +316,17 @@ TreeNode* param_list() {
 /* 9. param -> int ID | int ID [ ] */
 TreeNode* param() {
 	TreeNode* t = NULL;
-	TreeNode* p = NULL;
 	match(INT);
 	if (token == ID) {
 		char* idname = copyString(tokenString);
 		match(ID); //param的最后一个字符是ID
 		if (token == LMPAREN) {
 			match(LMPAREN);
-			match(RMPAREN); //param的最后一个字符是
+			match(RMPAREN); //param的最后一个字符是']'
 			t = newParamNode(ArrParamK);
 			t->attr.arr.name = idname;
 			t->type = IntegerArray;
-			p = newTypeNode(TypeNameK);
+			TreeNode* p = newTypeNode(TypeNameK);
 			p->type = IntegerArray;
 			t->child[0] = p;
 		}
@@ -335,7 +334,7 @@ TreeNode* param() {
 			t = newParamNode(NonArrParamK);
 			t->attr.name = idname;
 			t->type = Integer;
-			p = newTypeNode(TypeNameK);
+			TreeNode* p = newTypeNode(TypeNameK);
 			p->type = Integer;
 			t->child[0] = p;
 		}
@@ -374,6 +373,7 @@ TreeNode* local_declarations() {
 			if (token == SEMI) {
 				q = var_declaration();
 				q->attr.name = idname;
+				q->type = Integer;
 				r = newTypeNode(TypeNameK);
 				r->type = Integer;
 				q->child[0] = r;
@@ -381,6 +381,7 @@ TreeNode* local_declarations() {
 			else if (token == LMPAREN) {
 				q = arrvar_declaration();
 				q->attr.arr.name = idname;
+				q->type = IntegerArray;
 				r = newTypeNode(TypeNameK);
 				r->type = IntegerArray;
 				q->child[0] = r;
@@ -514,39 +515,39 @@ TreeNode* return_stmt() {
 TreeNode* assignment_stmt() {
 	TreeNode* t = NULL;
 	char* idname = copyString(tokenString);
-	TreeNode* p = newExpNode(IdK);
-	if (p != NULL) {
-		p->attr.name = idname;
-		p->type = Integer;
-	}
-	TreeNode* q = newExpNode(ArrIdK);
-	if (q != NULL) {
-		q->attr.arr.name = idname;
-		q->type = Integer;
-	}
 	match(ID);
-	if (token == EQUAL) {
+	if (token == EQUAL || token == LMPAREN) {
 		t = newStmtNode(AssignK);
 		if (t != NULL) {
-			t->child[0] = p;
-			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
-			p->child[0] = r;
-			match(EQUAL);
-			t->child[1] = additive_expression();
-			match(SEMI);
-		}
-	}
-	else if (token == LMPAREN) {
-		t = newStmtNode(AssignK);
-		if (t != NULL) {
-			t->child[0] = q;
-			match(LMPAREN);
-			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
-			q->child[0] = r;
-			q->child[1] = additive_expression();
-			match(RMPAREN);
+			
+			if (token == LMPAREN) {
+				TreeNode* q = newExpNode(ArrIdK);
+				if (q != NULL) {
+					q->attr.arr.name = idname;
+					q->type = Integer;
+					t->child[0] = q;
+					TreeNode* r = newTypeNode(TypeNameK);
+					r->type = Integer;
+					q->child[0] = r;
+					match(LMPAREN);
+					q->child[1] = additive_expression();
+					match(RMPAREN);
+				}
+				
+			}
+			else
+			{
+				TreeNode* p = newExpNode(IdK);
+				if (p != NULL) {
+					p->attr.name = idname;
+					p->type = Integer;
+					t->child[0] = p;
+					TreeNode* r = newTypeNode(TypeNameK);
+					r->type = Integer;
+					p->child[0] = r;
+				}
+				
+			}
 			match(EQUAL);
 			t->child[1] = additive_expression();
 			match(SEMI);
@@ -574,7 +575,7 @@ TreeNode* assignment_stmt() {
 	return t;
 }
 
-/* 19. var -> ID | ID [ additive_expression ] */
+/* 19. var -> ID | ID [ additive_expression ] | ID [ ] */
 
 
 /* 20. expression -> additive_expression relop additive_expression */
@@ -669,39 +670,48 @@ TreeNode* factor() {
 		match(ID);
 		if (token == LMPAREN) {
 			match(LMPAREN);
-			t = q;
-			TreeNode* w = newTypeNode(TypeNameK);
-			w->type = Integer;
-			t->type = Integer;
-			t->child[0] = w;
-			t->child[1] = additive_expression();
+			if (token == RMPAREN) {
+				t = q;
+				t->type = IntegerArray;
+				TreeNode* w = newTypeNode(TypeNameK);
+				w->type = IntegerArray;
+				t->child[0] = w;
+			}
+			else {
+				t = q;
+				t->type = Integer;
+				TreeNode* w = newTypeNode(TypeNameK);
+				w->type = Integer;
+				t->child[0] = w;
+				t->child[1] = additive_expression();
+			}
 			match(RMPAREN);
 		}
 		else if (token == LPAREN) {
 			match(LPAREN);
 			t = r;
+			t->type = Integer;
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->child[0] = w;
-			t->child[1] = args();					//***********************************************************************************************************
-			t->type = Integer;
+			t->child[1] = args();
 			match(RPAREN);
 		}
 		else {
 			t = p;
+			t->type = Integer;
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->child[0] = w;
-			t->type = Integer;
 		}
 			
 	}
 	else if (token == NUM) {
 		t = newExpNode(ConstK);
 		t->attr.val = atoi(copyString(tokenString));
+		t->type = Integer;
 		TreeNode* w = newTypeNode(TypeNameK);
 		w->type = Integer;
-		t->type = Integer;
 		t->child[0] = w;
 		match(NUM);
 	}

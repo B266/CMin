@@ -45,6 +45,12 @@ int addLocation(void)
 	return location[nScopeStack - 1]++;
 }
 
+int addLocation(int size)
+{
+	 location[nScopeStack - 1] += size;
+	 return location[nScopeStack - 1] - size;
+}
+
 void sc_push(Scope scope)
 {
 	scopeStack[nScopeStack] = scope;
@@ -212,6 +218,8 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 				case Boolean:
 					fprintf(listing, "Boolean \t");
 					break;
+				case IntegerArray:
+					fprintf(listing, "Integer \t");
 				default:
 					break;
 				}
@@ -222,7 +230,7 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 					t = t->next;
 				}
 
-				fprintf(listing, "memloc %d  ", l->memloc);
+				//fprintf(listing, "memloc %d  ", l->memloc);
 
 				fprintf(listing, "\n");
 				l = l->next;
