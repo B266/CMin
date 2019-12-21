@@ -1,18 +1,10 @@
 /* A Program to perform Euclid`s
    Algorithm to computer gcd */
-void a(int x[])
+void main()
 {
-	output(x[1]);
-}
-void main(void)
-{
-    int x[3];
-	int z;
-	z=0;
-	while(z<3)
-	{
-		z=z+1;
-		x[z]=input();
-	}
-	a(x[]);
+	int x[3];
+	x[2]=input();
+
+	output(x[2]);
+
 }
