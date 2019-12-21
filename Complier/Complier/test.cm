@@ -1,15 +1,19 @@
-/* A Program to perform Euclid`s
-   Algorithm to computer gcd */
+/* A C minus program */
 
-
-
-void main(void)
+void f(int x,int y)
 {
 	int z;
-	z=0;
-	while(z<5)
-	{
-		z=z+1;
-		output(z);
-	}
+
+	output(x);
+	output(y);
+}
+
+void main()
+{
+	int x;
+	int y;
+	x=2;
+	y=3;
+	f(x,y);
+	
 }
