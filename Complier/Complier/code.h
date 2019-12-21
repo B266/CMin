@@ -26,6 +26,8 @@
 /*2nd accumulator*/
 #define ac1 1
 
+#define MAX_GLOBAL_SIZE 256
+
 /* code emitting utilities */
 
 /*Procedure emitComment prints a comment line

@@ -362,13 +362,21 @@ static void genStmt(TreeNode* tree) {
         frameoffset -= offset;
 
         /* push scope */
-        sc_push(tree->attr.scope);
+		if (tree->isInFuncCom)
+		{
+			sc_push(tree->attr.scope);
+		}
+        
 
         /* generate code for body */
         cGen(p2);
 
         /* pop scope */
-        sc_pop();
+		if (tree->isInFuncCom)
+		{
+			sc_pop();
+		}
+        
 
         /* restore localOffset */
         frameoffset -= offset;
@@ -524,6 +532,7 @@ static void genDecl(TreeNode* tree)
 
         if (TraceCode) {
             sprintf(buffer, "-> Function (%s)", tree->attr.name);
+			sprintf(buffer, " frameoffset (%d) ", frameoffset);
             emitComment(buffer);
         }
 
@@ -649,7 +658,7 @@ void codeGen(TreeNode* syntaxTree, char* codefile)
     /* generate standard prelude */
     emitComment("Standard prelude:");
     emitRM("LD", gp, 0, ac, "load gp with maxaddress");
-    emitRM("LDA", fp, 0, gp, "copy gp to mp");
+    emitRM("LDA", fp, -MAX_GLOBAL_SIZE, gp, "copy gp to mp");
     emitRM("ST", ac, 0, ac, "clear location 0");
     emitComment("End of standard prelude.");
     /* push global scope */

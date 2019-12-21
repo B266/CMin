@@ -128,8 +128,12 @@ static void insertNode(TreeNode* t)
 				preserveLastScope = FALSE;
 			}
 			else {
-				Scope scope = sc_create(funcName);
-				sc_push(scope);
+				if (t->isInFuncCom)
+				{
+					Scope scope = sc_create(funcName);
+					sc_push(scope);
+				}
+				
 			}
 			t->attr.scope = sc_top();
 			break;

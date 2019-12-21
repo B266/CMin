@@ -1,19 +1,18 @@
-/* A C minus program */
-
-void f(int x,int y)
+/* A Program to perform Euclid`s
+   Algorithm to computer gcd */
+void a(int x[])
 {
-	int z;
-
-	output(x);
-	output(y);
+	output(x[1]);
 }
-
-void main()
+void main(void)
 {
-	int x;
-	int y;
-	x=2;
-	y=3;
-	f(x,y);
-	
+    int x[3];
+	int z;
+	z=0;
+	while(z<3)
+	{
+		z=z+1;
+		input(x[z]);
+	}
+	a(x);
 }

@@ -275,8 +275,10 @@ TreeNode* fun_declaration() {
 	TreeNode* t = newDeclNode(FuncK);
 	match(LPAREN);
 	t->child[1] = params();
+	
 	match(RPAREN);
 	t->child[2] = compound_stmt();
+	t->child[2]->isInFuncCom = true;
 	return t;
 }
 
