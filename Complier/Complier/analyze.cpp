@@ -224,11 +224,10 @@ static void insertNode(TreeNode* t)
 				}
 				if (t->kind.decl == VarK) {
 					name = t->attr.name;
-					t->type = Integer;
 				}
 				else {
 					name = t->attr.arr.name;
-					t->type = IntegerArray;
+
 				}
 
 				if (st_lookup_top(name) < 0)
