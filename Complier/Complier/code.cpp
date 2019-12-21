@@ -88,7 +88,6 @@ void emitRestore(void) {
  */
 void emitRM_Abs(const char* op, int r, int a,const char* c) {
     fprintf(code, "%3d:   %5s %d,%d(%d)", emitLoc, op, r, a - (emitLoc + 1),pc);
-    fprintf(listing,"%d\n", a - (emitLoc + 1));
     ++emitLoc;
     if (TraceCode)fprintf(code, "\t%s", c);
     fprintf(code, "\n");

@@ -229,11 +229,19 @@ static void genExp(TreeNode* tree, int lhs)
             emitRM("ST", ac, frameoffset--, fp, "id: push base address");
 
             /* generate code for index expression */
-            p1 = tree->child[0];
-            cGen(p1);
-            /* gen code to get correct varOffset */
-            emitRM("LD", ac1, ++frameoffset, fp, "id: pop base address");
-            emitRO("SUB", ac, ac1, ac, "id: calculate element address with index");
+            p1 = tree->child[1];
+            if (p1 != NULL)
+            {
+                cGen(p1);
+                /* gen code to get correct varOffset */
+                emitRM("LD", ac1, ++frameoffset, fp, "id: pop base address");
+                emitRO("SUB", ac, ac1, ac, "id: calculate element address with index");
+            }
+            else
+            {
+                emitRM("LD", ac1, ++frameoffset, fp, "id: pop base address");
+            }
+            
         }
         else {
             /* kind of node is for non-array id */

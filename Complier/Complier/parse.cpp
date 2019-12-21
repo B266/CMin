@@ -179,9 +179,9 @@ TreeNode* declaration()
 			else if (token == LMPAREN) {
 				t = arrvar_declaration();
 				t->attr.arr.name = idname;
-				t->type = Integer;
+				t->type = IntegerArray;
 				TreeNode* q = newTypeNode(TypeNameK);
-				q->type = Integer;
+				q->type = IntegerArray;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {
@@ -518,19 +518,34 @@ TreeNode* assignment_stmt() {
 	if (token == EQUAL || token == LMPAREN) {
 		t = newStmtNode(AssignK);
 		if (t != NULL) {
-			TreeNode* p = newExpNode(IdK);
-			if (p != NULL) {
-				p->attr.name = idname;
-				p->type = Integer;
-			}
-			t->child[0] = p;
-			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
-			p->child[0] = r;
+			
 			if (token == LMPAREN) {
-				match(LMPAREN);
-				p->child[1] = additive_expression();
-				match(RMPAREN);
+				TreeNode* q = newExpNode(ArrIdK);
+				if (q != NULL) {
+					q->attr.arr.name = idname;
+					q->type = Integer;
+					t->child[0] = q;
+					TreeNode* r = newTypeNode(TypeNameK);
+					r->type = Integer;
+					q->child[0] = r;
+					match(LMPAREN);
+					q->child[1] = additive_expression();
+					match(RMPAREN);
+				}
+				
+			}
+			else
+			{
+				TreeNode* p = newExpNode(IdK);
+				if (p != NULL) {
+					p->attr.name = idname;
+					p->type = Integer;
+					t->child[0] = p;
+					TreeNode* r = newTypeNode(TypeNameK);
+					r->type = Integer;
+					p->child[0] = r;
+				}
+				
 			}
 			match(EQUAL);
 			t->child[1] = additive_expression();
@@ -662,7 +677,7 @@ TreeNode* factor() {
 				t->child[0] = w;
 			}
 			else {
-				t = p;
+				t = q;
 				t->type = Integer;
 				TreeNode* w = newTypeNode(TypeNameK);
 				w->type = Integer;
