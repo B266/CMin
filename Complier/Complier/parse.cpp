@@ -180,9 +180,9 @@ TreeNode* declaration()
 			else if (token == LMPAREN) {
 				t = arrvar_declaration();
 				t->attr.arr.name = idname;
-				t->type = Integer;
+				t->type = IntegerArray;
 				TreeNode* q = newTypeNode(TypeNameK);
-				q->type = Integer;
+				q->type = IntegerArray;
 				t->child[0] = q;
 			}
 			else if (token == LPAREN) {

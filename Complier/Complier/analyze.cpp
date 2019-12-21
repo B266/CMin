@@ -232,8 +232,18 @@ static void insertNode(TreeNode* t)
 
 				if (st_lookup_top(name) < 0)
 				{
-					fprintf(listing, "decl var/vars %s\n", name);
-					st_insert(name, t->lineno, addLocation(), t);
+					
+					if (t->type == Integer)
+					{
+						fprintf(listing, "decl var %s\n", name);
+						st_insert(name, t->lineno, addLocation(), t);
+					}
+					else if (t->type == IntegerArray)
+					{
+						fprintf(listing, "decl vars %s\n", name);
+						st_insert(name, t->lineno, addLocation(t->attr.arr.size), t);
+					}
+					
 				}
 				else
 					symbolError(t, "symbol already declared for current scope");

@@ -45,6 +45,12 @@ int addLocation(void)
 	return location[nScopeStack - 1]++;
 }
 
+int addLocation(int size)
+{
+	 location[nScopeStack - 1] += size;
+	 return location[nScopeStack - 1] - size;
+}
+
 void sc_push(Scope scope)
 {
 	scopeStack[nScopeStack] = scope;

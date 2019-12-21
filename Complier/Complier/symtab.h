@@ -61,6 +61,7 @@ Scope sc_top(void);
 void sc_pop(void);
 void sc_push(Scope scope);
 int addLocation(void);
+int addLocation(int size);
 
 /* Procedure printSymTab prints a formatted
  * listing of the symbol table contents
