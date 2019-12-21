@@ -524,7 +524,7 @@ TreeNode* assignment_stmt() {
 	TreeNode* q = newExpNode(ArrIdK);
 	if (q != NULL) {
 		q->attr.arr.name = idname;
-		q->type = Integer;
+		q->type = IntegerArray;
 	}
 	match(ID);
 	if (token == EQUAL) {
@@ -671,7 +671,7 @@ TreeNode* factor() {
 		match(ID);
 		if (token == LMPAREN) {
 			match(LMPAREN);
-			t = q;
+			t = p;
 			TreeNode* w = newTypeNode(TypeNameK);
 			w->type = Integer;
 			t->type = Integer;

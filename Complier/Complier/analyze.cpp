@@ -147,7 +147,7 @@ static void insertNode(TreeNode* t)
 		{
 		
 		case ArrIdK:
-			fprintf(listing, "ExpK name %s\n", t->attr.arr.name);
+			fprintf(listing, "ArrExpK name %s\n", t->attr.arr.name);
 			if (st_lookup(t->attr.arr.name) == -1)
 				/* not yet in table , error */
 			{
@@ -288,7 +288,11 @@ static void afterInsertNode(TreeNode* t)
 		switch (t->kind.stmt)
 		{
 		case CompK:
-			sc_pop();
+			if (t->isInFuncCom)
+			{
+				sc_pop();
+			}
+			
 			break;
 		default:
 			break;

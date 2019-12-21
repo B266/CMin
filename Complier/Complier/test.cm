@@ -12,7 +12,7 @@ void main(void)
 	while(z<3)
 	{
 		z=z+1;
-		input(x[z]);
+		x[z]=input();
 	}
 	a(x);
 }

@@ -212,6 +212,8 @@ void printSymTabRows(BucketList* hashTable, FILE* listing)
 				case Boolean:
 					fprintf(listing, "Boolean \t");
 					break;
+				case IntegerArray:
+					fprintf(listing, "Integer \t");
 				default:
 					break;
 				}
