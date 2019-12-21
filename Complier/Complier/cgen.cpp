@@ -344,7 +344,7 @@ static void genStmt(TreeNode* tree) {
         // generate code for ac = rhs
         cGen(p2);
         // now load lhs
-        emitRM("LD", ac1, ++frameoffset, fp, "assign: load left (address)");
+        emitRM("LD", ac1, ++frameoffset-50, fp, "assign: load left (address)");
 
         emitRM("ST", ac, 0, ac1, "assign: store value");
 
@@ -649,7 +649,7 @@ void codeGen(TreeNode* syntaxTree, char* codefile)
     /* generate standard prelude */
     emitComment("Standard prelude:");
     emitRM("LD", gp, 0, ac, "load gp with maxaddress");
-    emitRM("LDA", fp, 0, gp, "copy gp to mp");
+    emitRM("LDA", fp, -50, gp, "copy gp to mp");
     emitRM("ST", ac, 0, ac, "clear location 0");
     emitComment("End of standard prelude.");
     /* push global scope */
