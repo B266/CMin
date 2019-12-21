@@ -515,39 +515,24 @@ TreeNode* return_stmt() {
 TreeNode* assignment_stmt() {
 	TreeNode* t = NULL;
 	char* idname = copyString(tokenString);
-	TreeNode* p = newExpNode(IdK);
-	if (p != NULL) {
-		p->attr.name = idname;
-		p->type = Integer;
-	}
-	TreeNode* q = newExpNode(ArrIdK);
-	if (q != NULL) {
-		q->attr.arr.name = idname;
-		q->type = IntegerArray;
-	}
 	match(ID);
-	if (token == EQUAL) {
+	if (token == EQUAL || token == LMPAREN) {
 		t = newStmtNode(AssignK);
 		if (t != NULL) {
+			TreeNode* p = newExpNode(IdK);
+			if (p != NULL) {
+				p->attr.name = idname;
+				p->type = Integer;
+			}
 			t->child[0] = p;
 			TreeNode* r = newTypeNode(TypeNameK);
 			r->type = Integer;
 			p->child[0] = r;
-			match(EQUAL);
-			t->child[1] = additive_expression();
-			match(SEMI);
-		}
-	}
-	else if (token == LMPAREN) {
-		t = newStmtNode(AssignK);
-		if (t != NULL) {
-			t->child[0] = q;
-			match(LMPAREN);
-			TreeNode* r = newTypeNode(TypeNameK);
-			r->type = Integer;
-			q->child[0] = r;
-			q->child[1] = additive_expression();
-			match(RMPAREN);
+			if (token == LMPAREN) {
+				match(LMPAREN);
+				p->child[1] = additive_expression();
+				match(RMPAREN);
+			}
 			match(EQUAL);
 			t->child[1] = additive_expression();
 			match(SEMI);

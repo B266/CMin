@@ -14,5 +14,5 @@ void main(void)
 		z=z+1;
 		x[z]=input();
 	}
-	a(x);
+	a(x[]);
 }
