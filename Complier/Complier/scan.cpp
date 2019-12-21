@@ -57,9 +57,9 @@ TokenType getToken(void) {
 		save = TRUE;
 		switch (state) {
 		case START:
-			if (isdigit(c) || c == '_')
+			if (isdigit(c))
 				state = INNUM;
-			else if (isalpha(c))
+			else if (isalpha(c) || c == '_')
 				state = INID;
 			else if ((c == ' ') || (c == '\t') || (c == '\n'))
 				save = FALSE;
@@ -179,7 +179,7 @@ TokenType getToken(void) {
 			}
 			break;
 		case INNUM:
-			if (!isdigit(c) && c != '_' && !isalpha(c)) {
+			if (!isdigit(c)) {
 				ungetNextChar();
 				save = FALSE;
 				state = DONE;
@@ -187,7 +187,7 @@ TokenType getToken(void) {
 			}
 			break;
 		case INID:
-			if (!isalpha(c)) {
+			if (!isalpha(c) && c != '_' && !isdigit(c)) {
 				ungetNextChar();
 				save = FALSE;
 				state = DONE;
