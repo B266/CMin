@@ -61,7 +61,7 @@ static void insertIOFunc(void)
 
 	char* tempName = new char[10];
 	strcpy(tempName, "input");
-	fprintf(listing, "func input add!\n");
+	
 	st_insert(tempName, -1, addLocation(), func);
 
 	func = newDeclNode(FuncK);
@@ -91,7 +91,6 @@ static void insertIOFunc(void)
 	
 	char* tempName1 = new char[10];
 	strcpy(tempName1, "output");
-	fprintf(listing, "func output add!\n");
 	st_insert(tempName1, -1, addLocation(), func);
 }
 
@@ -147,12 +146,10 @@ static void insertNode(TreeNode* t)
 		{
 		
 		case ArrIdK:
-			fprintf(listing, "ArrExpK name %s\n", t->attr.arr.name);
 			if (st_lookup(t->attr.arr.name) == -1)
 				/* not yet in table , error */
 			{
 				Scope nowScope = sc_top();
-				fprintf(listing, "can't find %s name\n", t->attr.arr.name);
 				symbolError(t, "undelcared symbol");
 			}
 
@@ -164,13 +161,11 @@ static void insertNode(TreeNode* t)
 
 		case IdK:
 		case CallK:
-			fprintf(listing, "ExpK name %s\n", t->attr.name);
 			/* not yet in table, so treat as new definition */
 			if (st_lookup(t->attr.name) == -1)
 				/* not yet in table , error */
 			{
 				Scope nowScope= sc_top();
-				fprintf(listing, "can't find %s name\n", t->attr.name);
 				symbolError(t, "undelcared symbol");
 			}
 				
@@ -193,12 +188,8 @@ static void insertNode(TreeNode* t)
 				symbolError(t, "function already declared");
 				break;
 			}
-			fprintf(listing, "decl fun %s\n", funcName);
-			if (t->type == Integer)
-			{
-				fprintf(listing, "type Int\n");
-			}
 			
+
 			st_insert(funcName, t->lineno, addLocation(), t);
 			sc_push(sc_create(funcName));
 			preserveLastScope = TRUE;
@@ -235,12 +226,10 @@ static void insertNode(TreeNode* t)
 					
 					if (t->type == Integer)
 					{
-						fprintf(listing, "decl var %s\n", name);
 						st_insert(name, t->lineno, addLocation(), t);
 					}
 					else if (t->type == IntegerArray)
 					{
-						fprintf(listing, "decl vars %s\n", name);
 						st_insert(name, t->lineno, addLocation(t->attr.arr.size), t);
 					}
 					
@@ -260,7 +249,6 @@ static void insertNode(TreeNode* t)
 		else if (t->kind.param == NonArrParamK)
 		{
 			if (st_lookup(t->attr.name) == -1) {
-				fprintf(listing, "decl ParamK %s\n", t->attr.name);
 				st_insert(t->attr.name, t->lineno, addLocation(), t);
 				if (t->kind.param == NonArrParamK)
 					t->type = Integer;
@@ -271,7 +259,6 @@ static void insertNode(TreeNode* t)
 		else if (t->kind.param == ArrParamK)
 		{
 			if (st_lookup(t->attr.arr.name) == -1) {
-				fprintf(listing, "decl ArrParamK %s\n", t->attr.arr.name);
 				st_insert(t->attr.arr.name, t->lineno, addLocation(), t);
 				/*
 				if (t->kind.param == NonArrParamK)

@@ -74,7 +74,6 @@ int main(int argc, char* argv[])
 #if !NO_ANALYZE
 	if (!Error)
 	{
-		fprintf(listing, "ERROR %d\n", Error);
 		if (TraceAnalyze) fprintf(listing, "\nBuilding Symbol Table...\n");
 		buildSymtab(syntaxTree);
 		if (TraceAnalyze) fprintf(listing, "\nChecking Types...\n");
@@ -95,10 +94,11 @@ int main(int argc, char* argv[])
 		//code = stdout;
 		if (code == NULL)
 		{
-			printf("Unable to open %s\n", codefile);
+			fprintf(listing,"Unable to open %s\n", codefile);
 			exit(1);
 		}
 		codeGen(syntaxTree, codefile);
+		fprintf(listing, "Code Gen Finished\n");
 		fclose(code);
 	}
 #endif
