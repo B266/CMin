@@ -34,12 +34,12 @@ ParamNode:
 	NonArrParamK:
 		attr.name = ID
 		type = Integer
-		child[0] = TypeNode(TypeNameK) : tpe = Integer
+		child[0] = TypeNode(TypeNameK) : type = Integer
 		sibling = ParamNode | NULL
 
 StmtNode:
 	AssignK:
-		child[0] = ExpNode(IdK) | ExpNode(ArrIdK):
+		child[0] = ExpNode(IdK)
 		child[1] = ExpNode
 		sibling = StmtNode | NULL
 	CompK:
@@ -76,8 +76,8 @@ ExpNode:
 		sibling = NULL
 	ArrIdK:
 		attr.arr.name = ID
-		type = Integer
-		child[0] = TypeNode(TypeNameK) : type = Integer
+		type = IntegerArray
+		child[0] = TypeNode(TypeNameK) : type = IntegerArray
 		child[1] = ExpNode
 		sibling = NULL
 	CallK:
@@ -163,7 +163,6 @@ TreeNode* declaration()
 {
 	TreeNode* t = NULL;
 	TreeNode* p = t;
-	TokenType tokentype = token;
 	if (token == INT) {
 		match(INT);
 		if (token == ID) {
