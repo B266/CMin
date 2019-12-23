@@ -23,7 +23,7 @@ fun(x[]); //right!
 ```
 
 ### Example
-1. 求最大公约数
+* 求最大公约数
 ``` c
 /* A Program to perform Euclid`s
    Algorithm to computer gcd */
@@ -42,7 +42,7 @@ void main(void)
     output(gcd(x,y));
 }
 ```
-2.排序算法
+* 排序算法
 ```c
 int x[10];
 
