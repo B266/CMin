@@ -22,7 +22,7 @@ fun(x);  //wrong!
 fun(x[]); //right!
 ```
 
-### 示例
+### Example
 ``` c
 /* A Program to perform Euclid`s
    Algorithm to computer gcd */
