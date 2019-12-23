@@ -11,7 +11,7 @@
 ### How to use
 1. 分别建立complier、TinyMachine两个工程
 2. TinyMachine工程将tm.cpp加入其中，编译运行
-3. complier工程将其余代码加入其中，编译运行
+3. compiler工程将其余代码加入其中，编译运行
 
 ### Notice 
 与c语言文法不同，我们编译器在函数传递数组时需带“[]”
@@ -21,7 +21,7 @@ fun(x);  //wrong!
 fun(x[]); //right!
 ```
 
- ### reference 
+ ### Reference 
  1. Compiler Construction: Principles and Practice - Kenneth C.Louden   <-没有这本书就没有这个项目
  2. Parsing Techniques - Dick Grune; Ceriel J.H. Jacobs <- 从中学习了部分编译前端知识
  3. [isairz/cminus](https://github.com/isairz/cminus) <-从他的代码里学到了很多，感谢他
