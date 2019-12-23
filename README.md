@@ -22,6 +22,26 @@ fun(x);  //wrong!
 fun(x[]); //right!
 ```
 
+### 示例
+``` c
+/* A Program to perform Euclid`s
+   Algorithm to computer gcd */
+
+int gcd (int u, int v)
+{
+    if (v == 0) return u;
+    else return gcd(v,u-u/v*v);
+    /* u-u/v*v == u mod v */
+}
+
+void main(void)
+{
+    int x; int y;
+    x = input(); y = input();
+    output(gcd(x,y));
+}
+```
+
  ### Reference 
  1. Compiler Construction: Principles and Practice - Kenneth C.Louden   <-没有这本书就没有这个项目
  2. Parsing Techniques - Dick Grune; Ceriel J.H. Jacobs <- 从中学习了部分编译前端知识
