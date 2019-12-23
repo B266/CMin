@@ -1,12 +1,12 @@
 # CminCompiler
 * 该项目是由[Tiny Compiler](http://www.cs.sjsu.edu/faculty/louden/cmptext/)改进而来，C语言子集文法的编译器。
-* 亦是我们小组的编译原理课程设计（东北大学，物联网1701，余斐然，刘源，王理庚，李勐）
+* 亦是我们小组的编译原理课程设计（东北大学，物联网1701，[余斐然，刘源，王理庚，李勐]）
 * 支持 函数、数组
 ### Tested Environment
 	- Windows 10 
 
 ### Requirement
-	- VS 2019
+	- Visual Studio 2019
 
 ### How to use
 1. 分别建立complier、TinyMachine两个工程
