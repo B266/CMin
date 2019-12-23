@@ -9,9 +9,9 @@
 	- VS 2019
 
 ### How to use
-1.分别建立complier、TinyMachine两个工程
-2.TinyMachine工程将tm.cpp加入其中，编译运行
-3.complier工程将其余代码加入其中，编译运行
+1. 分别建立complier、TinyMachine两个工程
+2. TinyMachine工程将tm.cpp加入其中，编译运行
+3. complier工程将其余代码加入其中，编译运行
 
 ### Notice 
 与c语言文法不同，我们编译器在函数传递数组时需带“[]”
