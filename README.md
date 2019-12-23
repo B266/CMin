@@ -17,12 +17,12 @@
 与c语言文法不同，我们编译器在函数传递数组时需带“[]”
 ``` c
 int x[10];
-fun(x)  //wrong!
-fun(x[]) //right!
+fun(x);  //wrong!
+fun(x[]); //right!
 ```
 
  ### reference 
- 1. Compiler Construction: Principles and Practice - Kenneth C.Louden
- 2. Parsing Techniques - Dick Grune; Ceriel J.H. Jacobs
+ 1. Compiler Construction: Principles and Practice - Kenneth C.Louden   <-没有这本书就没有这个项目
+ 2. Parsing Techniques - Dick Grune; Ceriel J.H. Jacobs <- 从中学习了部分编译前端知识
  3. [isairz/cminus](https://github.com/isairz/cminus) <-从他的代码里学到了很多，感谢他
  4. [naveenrajm7/c--compiler](https://github.com/naveenrajm7/c--compiler) <- 从这个代码里，理解了内存中栈的分配，感谢他
