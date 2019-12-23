@@ -9,6 +9,7 @@
 	- Visual Studio 2019
 
 ### How to use
+0. 克隆该项目
 1. 分别建立complier、TinyMachine两个工程
 2. TinyMachine工程将tm.cpp加入其中，编译运行
 3. compiler工程将其余代码加入其中，编译运行
