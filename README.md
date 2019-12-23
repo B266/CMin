@@ -6,7 +6,7 @@
 	- Windows 10 
 
 ### Requirement
-	- VS 2019
+	- Visual Studio 2019
 
 ### How to use
 1.分别建立complier、TinyMachine两个工程
