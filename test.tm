@@ -2,7 +2,7 @@
 *File: test.tm
 *Standard prelude:
   0:     LD  5,0(0) 	load gp with maxaddress
-  1:    LDA  6,0(5) 	copy gp to mp
+  1:    LDA  6,-256(5) 	copy gp to mp
   2:     ST  0,0(0) 	clear location 0
 *End of standard prelude.
 *-> Function (gcd)
@@ -22,7 +22,7 @@
 *-> Op
 *-> Id (v)
   7:    LDC  0,-3(0) 	id: load varOffset
-  8:     ADD   0,6,0	id: calculate the address
+  8:     ADD   0,6,0	id: calculate the address found in current frame
   9:     LD  0,0(0) 	load id value
 *<- Id
  10:     ST  0,-4(6) 	op: push left
@@ -40,7 +40,7 @@
 *-> return
 *-> Id (u)
  19:    LDC  0,-2(0) 	id: load varOffset
- 20:     ADD   0,6,0	id: calculate the address
+ 20:     ADD   0,6,0	id: calculate the address found in current frame
  21:     LD  0,0(0) 	load id value
 *<- Id
  22:     LD  7,-1(6) 	return: to caller
@@ -51,14 +51,14 @@
 *-> Call
 *-> Id (v)
  24:    LDC  0,-3(0) 	id: load varOffset
- 25:     ADD   0,6,0	id: calculate the address
+ 25:     ADD   0,6,0	id: calculate the address found in current frame
  26:     LD  0,0(0) 	load id value
 *<- Id
  27:     ST  0,-6(6) 	call: push argument
 *-> Op
 *-> Id (u)
  28:    LDC  0,-2(0) 	id: load varOffset
- 29:     ADD   0,6,0	id: calculate the address
+ 29:     ADD   0,6,0	id: calculate the address found in current frame
  30:     LD  0,0(0) 	load id value
 *<- Id
  31:     ST  0,-4(6) 	op: push left
@@ -66,13 +66,13 @@
 *-> Op
 *-> Id (u)
  32:    LDC  0,-2(0) 	id: load varOffset
- 33:     ADD   0,6,0	id: calculate the address
+ 33:     ADD   0,6,0	id: calculate the address found in current frame
  34:     LD  0,0(0) 	load id value
 *<- Id
  35:     ST  0,-5(6) 	op: push left
 *-> Id (v)
  36:    LDC  0,-3(0) 	id: load varOffset
- 37:     ADD   0,6,0	id: calculate the address
+ 37:     ADD   0,6,0	id: calculate the address found in current frame
  38:     LD  0,0(0) 	load id value
 *<- Id
  39:     LD  1,-5(6) 	op: load left
@@ -81,7 +81,7 @@
  41:     ST  0,-5(6) 	op: push left
 *-> Id (v)
  42:    LDC  0,-3(0) 	id: load varOffset
- 43:     ADD   0,6,0	id: calculate the address
+ 43:     ADD   0,6,0	id: calculate the address found in current frame
  44:     LD  0,0(0) 	load id value
 *<- Id
  45:     LD  1,-5(6) 	op: load left
@@ -104,7 +104,7 @@
 *<-compound
  56:     LD  7,-1(6) 	func: load pc with return address
   5:     LDA 7,51(7)	func: unconditional jump to next declaration
-*-> Function (gcd)
+* frameoffset (-4) 
 *-> Function (main)
  58:     ST  1,-3(5) 	func: store the location of func. entry
 *func: unconditional jump to next declaration belongs here
@@ -115,7 +115,7 @@
 *-> assign
 *-> Id (x)
  61:    LDC  0,-2(0) 	id: load varOffset
- 62:     ADD   0,6,0	id: calculate the address
+ 62:     ADD   0,6,0	id: calculate the address found in current frame
  63:    LDA  0,0(0) 	load id address
 *<- Id
  64:     ST  0,-4(6) 	assign: push left (address)
@@ -128,7 +128,7 @@
 *-> assign
 *-> Id (y)
  68:    LDC  0,-3(0) 	id: load varOffset
- 69:     ADD   0,6,0	id: calculate the address
+ 69:     ADD   0,6,0	id: calculate the address found in current frame
  70:    LDA  0,0(0) 	load id address
 *<- Id
  71:     ST  0,-4(6) 	assign: push left (address)
@@ -142,13 +142,13 @@
 *-> Call
 *-> Id (x)
  75:    LDC  0,-2(0) 	id: load varOffset
- 76:     ADD   0,6,0	id: calculate the address
+ 76:     ADD   0,6,0	id: calculate the address found in current frame
  77:     LD  0,0(0) 	load id value
 *<- Id
  78:     ST  0,-6(6) 	call: push argument
 *-> Id (y)
  79:    LDC  0,-3(0) 	id: load varOffset
- 80:     ADD   0,6,0	id: calculate the address
+ 80:     ADD   0,6,0	id: calculate the address found in current frame
  81:     LD  0,0(0) 	load id value
 *<- Id
  82:     ST  0,-7(6) 	call: push argument
@@ -165,7 +165,7 @@
 *<-compound
  91:     LD  7,-1(6) 	func: load pc with return address
  59:     LDA 7,32(7)	func: unconditional jump to next declaration
-*-> Function (main)
+* frameoffset (-6) 
  92:    LDC  0,-2(0) 	init: load globalOffset
  93:     ADD   6,6,0	init: initialize mp with globalOffset
 *-> Call
